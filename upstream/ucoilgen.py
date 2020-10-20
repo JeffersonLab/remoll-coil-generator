@@ -203,7 +203,7 @@ out+="\n<setup name=\"US_toroidWorld\" version=\"1.0\">"
 out+="\n\t<world ref=\"US_toroidMother\"/>"
 out+="\n</setup>\n"
 
-out+="\n</gdml>"
+out+="\n</gdml>\n"
 
 f.write(out)
 
