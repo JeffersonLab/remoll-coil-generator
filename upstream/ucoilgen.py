@@ -159,7 +159,7 @@ for i in range(1,8):
         out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4000+i)+"\"/>"
         out+="\n\t\t\t<physvol name=\"inner_E\">"
         out+="\n\t\t\t\t<volumeref ref=\"logic_inner_E_"+str(i)+"\"/>"
-        out+="\n\t\t\t\t<rotation name=\"rot_inner_E\" y=\"0\" aunit=\"rad\" />"
+        out+="\n\t\t\t\t<rotation name=\"rot_inner_E\" y=\"0\" unit=\"rad\" />"
         out+="\n\t\t\t</physvol>\n"
         out+="\n\t</volume>\n"
 
