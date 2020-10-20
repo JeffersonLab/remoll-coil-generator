@@ -97,8 +97,8 @@ for i in ["C", "outer_E","inner_E"]:
   out+="\n\t\t<twoDimVertex x=\""+str(xoff[i]+ p["C_x1_up"]-p["C_rpos"])+"\" y=\""+str(p["C_z1_up"]-p["C_z1_up"])+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(-xoff[i]+ p["C_x1_low"]-p["C_rpos"])+"\" y=\""+str(p["C_z1_low"]-p["C_z1_up"])+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(-xoff[i]+ p["C_x2_low"]-p["C_rpos"])+"\" y=\""+str(p["C_z2_low"]-p["C_z1_up"])+"\" />"
-  out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-yoff[i]-p["C_dy"]/2)+"\"/>"
-  out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(yoff[i]+p["C_dy"]/2)+"\"/>"
+  out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-yoff[i]-p["C_dy"]/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(yoff[i]+p["C_dy"]/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t</xtru>"
   out+="\n\t<tube name=\"solid_"+i+"_front\" rmin=\"0\" rmax=\""+str(xoff[i]+p["C_rad_front"])+"\" z=\""+str(2*yoff[i]+p["C_dy"])+"\" startphi=\"0\" deltaphi=\"pi\" aunit=\"rad\" lunit=\"mm\"/>\n"
   out+="\n\t<tube name=\"solid_"+i+"_back\" rmin=\"0\" rmax=\""+str(xoff[i]+p["C_rad_back"])+"\" z=\""+str(2*yoff[i]+p["C_dy"])+"\" startphi=\"0\" deltaphi=\"pi\" aunit=\"rad\" lunit=\"mm\"/>\n"
@@ -154,24 +154,24 @@ for i in range(1,8):
         out+="\n\t<volume name=\"logic_C_"+str(i)+"\">"
         out+="\n\t\t<materialref ref=\"G4_Cu\"/>"
         out+="\n\t\t<solidref ref=\"solid_C\"/>"
-        out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"magenta\"/>"
-        out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
-        out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4000+i)+"\"/>"
         out+="\n\t\t\t<physvol name=\"inner_E_"+str(i)+"\">"
         out+="\n\t\t\t\t<volumeref ref=\"logic_inner_E_"+str(i)+"\"/>"
         out+="\n\t\t\t\t<rotation name=\"rot_inner_E_"+str(i)+"\" y=\"0\" aunit=\"rad\" />"
         out+="\n\t\t\t</physvol>\n"
+        out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"magenta\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4000+i)+"\"/>"
         out+="\n\t</volume>\n"
 
         out+="\n\t<volume name=\"logic_outer_E_"+str(i)+"\">"
         out+="\n\t\t<materialref ref=\"G10\"/>"
         out+="\n\t\t<solidref ref=\"solid_outer_E\"/>"
-        out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"orange\"/>"
-        out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
-        out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4007+i)+"\"/>"
         out+="\n\t\t\t<physvol name=\"C_"+str(i)+"\">"
         out+="\n\t\t\t\t<volumeref ref=\"logic_C_"+str(i)+"\"/>"
         out+="\n\t\t\t</physvol>\n"
+        out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"orange\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4007+i)+"\"/>"
         out+="\n\t</volume>\n"
 
 
@@ -179,7 +179,6 @@ for i in range(1,8):
 out+="\n\t<volume name=\"US_toroidMother\">"
 out+="\n\t\t<materialref ref=\"G4_Galactic\"/>"
 out+="\n\t\t<solidref ref=\"solid_US_toroidMother\"/>"
-out+="\n\t\t<auxiliary auxtype=\"Alpha\" auxvalue=\"0.0\"/>"
 
 
 for i in range(1,8):
@@ -194,6 +193,7 @@ for i in range(1,8):
         out+="\n\t\t\t<rotation name=\"rot_ucoil_"+str(i)+"\" x=\"pi/2\" y=\""+str(theta)+"\" z=\"0\"/>"
         out+="\n\t\t</physvol>\n"
 
+out+="\n\t\t<auxiliary auxtype=\"Alpha\" auxvalue=\"0.0\"/>"
 out+="\n\t</volume>\n"
 out+="\n</structure>\n"
 
