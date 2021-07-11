@@ -32,9 +32,22 @@ p["C_rad_back"]= (p["C_x2_up"]-p["C_x2_low"])/2.0
 p["C_rpos"]=p["C_x1_low"]+ p["C_rad_front"]
 p["C_zpos"]=p["C_z1_up"]+p["C_l_arm"]/2-7000   ## The 7000 needs to be the center of the mother volume
 
+lower_shield1=41.4
+higher_shield1=100
+length_shield1=100
+zpos_shield1=5000+1050
 
+lower_shield2=41.4
+higher_shield2=70
+length_shield2=200
+zpos_shield2=5000+1200
 
-r_inner_mother=p["C_x1_low"]-p["E_dy"]-0.01
+lower_shield3=37
+higher_shield3=60
+length_shield3=700
+zpos_shield3=5000+1650
+
+r_inner_mother=p["C_x1_low"]-p["E_dy"]-0.01-0.01
 r_outer_mother=p["C_x2_up"]+p["E_dy"]+1
 l_mother=2*( p["C_COM"] - p["C_z1_up"])+p["C_rad_front"]+p["C_rad_back"]+48
 
@@ -119,6 +132,109 @@ for i in ["C", "outer_E","inner_E"]:
   out+="\n\t</union>\n"
 
 
+for i in range(1,8):
+  theta=2*(i-1)*math.pi/7
+  x1= math.cos(theta)*lower_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  y1= math.sin(theta)*lower_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  x2= math.cos(theta)*lower_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-1)
+  y2= math.sin(theta)*lower_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-1)
+  x3= math.cos(theta)*higher_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-3)
+  y3= math.sin(theta)*higher_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-3)
+  x4= math.cos(theta)*higher_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  y4= math.sin(theta)*higher_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  out+="\n\t<xtru name=\"solid_shield1_top_"+str(i)+"\"  lunit=\"mm\">"
+  out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
+  out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t</xtru>"
+
+  x1= math.cos(theta)*lower_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  y1= math.sin(theta)*lower_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  x2= math.cos(theta)*lower_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-1)
+  y2= math.sin(theta)*lower_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-1)
+  x3= math.cos(theta)*higher_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-3)
+  y3= math.sin(theta)*higher_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-3)
+  x4= math.cos(theta)*higher_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  y4= math.sin(theta)*higher_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  out+="\n\t<xtru name=\"solid_shield2_top_"+str(i)+"\"  lunit=\"mm\">"
+  out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
+  out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield2/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield2/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t</xtru>"
+
+  x1= math.cos(theta)*lower_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  y1= math.sin(theta)*lower_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  x2= math.cos(theta)*lower_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-1)
+  y2= math.sin(theta)*lower_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-1)
+  x3= math.cos(theta)*higher_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-3)
+  y3= math.sin(theta)*higher_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5-3)
+  x4= math.cos(theta)*higher_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  y4= math.sin(theta)*higher_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-2.5)
+  out+="\n\t<xtru name=\"solid_shield3_top_"+str(i)+"\"  lunit=\"mm\">"
+  out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
+  out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield3/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield3/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t</xtru>"
+
+  x1= math.cos(theta)*lower_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  y1= math.sin(theta)*lower_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  x2= math.cos(theta)*lower_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+1)
+  y2= math.sin(theta)*lower_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+1)
+  x3= math.cos(theta)*higher_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+3)
+  y3= math.sin(theta)*higher_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+3)
+  x4= math.cos(theta)*higher_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  y4= math.sin(theta)*higher_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  out+="\n\t<xtru name=\"solid_shield1_bot_"+str(i)+"\"  lunit=\"mm\">"
+  out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
+  out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t</xtru>"
+
+  x1= math.cos(theta)*lower_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  y1= math.sin(theta)*lower_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  x2= math.cos(theta)*lower_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+1)
+  y2= math.sin(theta)*lower_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+1)
+  x3= math.cos(theta)*higher_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+3)
+  y3= math.sin(theta)*higher_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+3)
+  x4= math.cos(theta)*higher_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  y4= math.sin(theta)*higher_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  out+="\n\t<xtru name=\"solid_shield2_bot_"+str(i)+"\"  lunit=\"mm\">"
+  out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
+  out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield2/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield2/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t</xtru>"
+
+  x1= math.cos(theta)*lower_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  y1= math.sin(theta)*lower_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  x2= math.cos(theta)*lower_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+1)
+  y2= math.sin(theta)*lower_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+1)
+  x3= math.cos(theta)*higher_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+3)
+  y3= math.sin(theta)*higher_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5+3)
+  x4= math.cos(theta)*higher_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  y4= math.sin(theta)*higher_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+2.5)
+  out+="\n\t<xtru name=\"solid_shield3_bot_"+str(i)+"\"  lunit=\"mm\">"
+  out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
+  out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield3/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield3/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t</xtru>"
 
 
 ### Upstream toroid mother
@@ -174,7 +290,55 @@ for i in range(1,8):
         out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4007+i)+"\"/>"
         out+="\n\t</volume>\n"
 
+        out+="\n\t<volume name=\"logic_shield1_top_"+str(i)+"\">"
+        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<solidref ref=\"solid_shield1_top_"+str(i)+"\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4014+i)+"\"/>"
+        out+="\n\t</volume>\n"
 
+        out+="\n\t<volume name=\"logic_shield2_top_"+str(i)+"\">"
+        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<solidref ref=\"solid_shield2_top_"+str(i)+"\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4021+i)+"\"/>"
+        out+="\n\t</volume>\n"
+
+        out+="\n\t<volume name=\"logic_shield3_top_"+str(i)+"\">"
+        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<solidref ref=\"solid_shield3_top_"+str(i)+"\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4028+i)+"\"/>"
+        out+="\n\t</volume>\n"
+
+
+        out+="\n\t<volume name=\"logic_shield1_bot_"+str(i)+"\">"
+        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<solidref ref=\"solid_shield1_bot_"+str(i)+"\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4014+i)+"\"/>"
+        out+="\n\t</volume>\n"
+
+
+        out+="\n\t<volume name=\"logic_shield2_bot_"+str(i)+"\">"
+        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<solidref ref=\"solid_shield2_bot_"+str(i)+"\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4021+i)+"\"/>"
+        out+="\n\t</volume>\n"
+
+        out+="\n\t<volume name=\"logic_shield3_bot_"+str(i)+"\">"
+        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<solidref ref=\"solid_shield3_bot_"+str(i)+"\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4028+i)+"\"/>"
+        out+="\n\t</volume>\n"
 
 out+="\n\t<volume name=\"US_toroidMother\">"
 out+="\n\t\t<materialref ref=\"G4_Galactic\"/>"
@@ -193,6 +357,45 @@ for i in range(1,8):
         out+="\n\t\t\t<rotation name=\"rot_ucoil_"+str(i)+"\" x=\"pi/2\" y=\""+str(theta)+"\" z=\"0\"/>"
         out+="\n\t\t</physvol>\n"
 
+        out+="\n\t\t<physvol name=\"shield1_top_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_shield1_top_"+str(i)+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_shield1_top_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(p["C_zpos"]-(-zpos_shield1+7000))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_shield1_top_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
+        out+="\n\t\t</physvol>\n"
+ 
+        out+="\n\t\t<physvol name=\"shield2_top_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_shield2_top_"+str(i)+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_shield2_top_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(p["C_zpos"]-(-zpos_shield2+7000))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_shield2_top_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
+        out+="\n\t\t</physvol>\n"
+
+        out+="\n\t\t<physvol name=\"shield3_top_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_shield3_top_"+str(i)+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_shield3_top_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(p["C_zpos"]-(-zpos_shield3+7000))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_shield3_top_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
+        out+="\n\t\t</physvol>\n"
+
+
+        out+="\n\t\t<physvol name=\"shield1_bot_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_shield1_bot_"+str(i)+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_shield1_bot_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(p["C_zpos"]-(-zpos_shield1+7000))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_shield1_bot_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
+        out+="\n\t\t</physvol>\n"
+
+        out+="\n\t\t<physvol name=\"shield2_bot_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_shield2_bot_"+str(i)+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_shield2_bot_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(p["C_zpos"]-(-zpos_shield2+7000))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_shield2_bot_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
+        out+="\n\t\t</physvol>\n"
+
+        out+="\n\t\t<physvol name=\"shield3_bot_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_shield3_bot_"+str(i)+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_shield3_bot_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(p["C_zpos"]-(-zpos_shield3+7000))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_shield3_bot_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
+        out+="\n\t\t</physvol>\n"
+
+
+        
 out+="\n\t\t<auxiliary auxtype=\"Alpha\" auxvalue=\"0.0\"/>"
 out+="\n\t</volume>\n"
 out+="\n</structure>\n"
