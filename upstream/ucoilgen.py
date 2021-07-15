@@ -114,6 +114,8 @@ yoff["inner_E"]= 0
 for i in ["C", "outer_E","inner_E"]: 
   out+="\n\t<xtru name=\"solid_"+i+"_mid\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(xoff[i]+ p["C_x2_up"]-p["C_rpos"])+"\" y=\""+str(p["C_z2_up"]-p["C_z1_up"])+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(xoff[i]+ p["C_x4_up"]-p["C_rpos"])+"\" y=\""+str(p["C_z4_up"]-p["C_z1_up"])+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(xoff[i]+ p["C_x3_up"]-p["C_rpos"])+"\" y=\""+str(p["C_z3_up"]-p["C_z1_up"])+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(xoff[i]+ p["C_x1_up"]-p["C_rpos"])+"\" y=\""+str(p["C_z1_up"]-p["C_z1_up"])+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(-xoff[i]+ p["C_x1_low"]-p["C_rpos"])+"\" y=\""+str(p["C_z1_low"]-p["C_z1_up"])+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(-xoff[i]+ p["C_x2_low"]-p["C_rpos"])+"\" y=\""+str(p["C_z2_low"]-p["C_z1_up"])+"\" />"
