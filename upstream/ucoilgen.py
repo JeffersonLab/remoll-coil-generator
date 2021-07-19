@@ -32,25 +32,39 @@ p["C_rad_back"]= (p["C_x2_up"]-p["C_x2_low"])/2.0
 p["C_rpos"]=p["C_x1_low"]+ p["C_rad_front"]
 p["C_zpos"]=p["C_z1_up"]+p["C_l_arm"]/2-7000   ## The 7000 needs to be the center of the mother volume
 
-lower_shield1=41.4
+lower_shield1=33
+intermediate_shield1=50
 higher_shield1=100
 length_shield1=100
 zpos_shield1=5000+1050
+widthbot_shield1=0.5
+widthtop_shield1=3
 
 lower_shield2=33
-higher_shield2=70
+intermediate_shield2=50
+higher_shield2=100
 length_shield2=200
 zpos_shield2=5000+1200
+widthbot_shield2=0.5
+widthtop_shield2=3
 
 lower_shield3=33
-higher_shield3=60
+intermediate_shield3=40
+higher_shield3=100
 length_shield3=700
 zpos_shield3=5000+1650
+widthbot_shield3=0.5
+widthtop_shield3=3
+
 
 lower_shield4=33
 higher_shield4=60
 length_shield4=750
 zpos_shield4=5000+2375
+widthbot_shield4=3
+widthtop_shield4=3
+
+
 
 shield_clearance=1.5
 
@@ -145,61 +159,71 @@ for i in range(1,8):
   theta=2*(i-1)*math.pi/7
   x1= math.cos(theta)*lower_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
   y1= math.sin(theta)*lower_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
-  x2= math.cos(theta)*lower_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-1)
-  y2= math.sin(theta)*lower_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-1)
-  x3= math.cos(theta)*higher_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-3)
-  y3= math.sin(theta)*higher_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-3)
-  x4= math.cos(theta)*higher_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
-  y4= math.sin(theta)*higher_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
+  x2= math.cos(theta)*lower_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthbot_shield1)
+  y2= math.sin(theta)*lower_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthbot_shield1)
+  x3= math.cos(theta)*intermediate_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield1)
+  y3= math.sin(theta)*intermediate_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield1)
+  x4= math.cos(theta)*higher_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield1)
+  y4= math.sin(theta)*higher_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield1)
+  x5= math.cos(theta)*higher_shield1-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
+  y5= math.sin(theta)*higher_shield1+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
   out+="\n\t<xtru name=\"solid_shield1_top_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
+
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t</xtru>"
 
   x1= math.cos(theta)*lower_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
   y1= math.sin(theta)*lower_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
-  x2= math.cos(theta)*lower_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-1)
-  y2= math.sin(theta)*lower_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-1)
-  x3= math.cos(theta)*higher_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-3)
-  y3= math.sin(theta)*higher_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-3)
-  x4= math.cos(theta)*higher_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
-  y4= math.sin(theta)*higher_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
+  x2= math.cos(theta)*lower_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthbot_shield2)
+  y2= math.sin(theta)*lower_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthbot_shield2)
+  x3= math.cos(theta)*intermediate_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield2)
+  y3= math.sin(theta)*intermediate_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield2)
+  x4= math.cos(theta)*higher_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield2)
+  y4= math.sin(theta)*higher_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield2)  
+  x5= math.cos(theta)*higher_shield2-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
+  y5= math.sin(theta)*higher_shield2+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
   out+="\n\t<xtru name=\"solid_shield2_top_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield2/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield2/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t</xtru>"
 
   x1= math.cos(theta)*lower_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
   y1= math.sin(theta)*lower_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
-  x2= math.cos(theta)*lower_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-1)
-  y2= math.sin(theta)*lower_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-1)
-  x3= math.cos(theta)*higher_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-3)
-  y3= math.sin(theta)*higher_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-3)
-  x4= math.cos(theta)*higher_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
-  y4= math.sin(theta)*higher_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
+  x2= math.cos(theta)*lower_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthbot_shield3)
+  y2= math.sin(theta)*lower_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthbot_shield3)
+  x3= math.cos(theta)*intermediate_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield3)
+  y3= math.sin(theta)*intermediate_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield3)
+  x4= math.cos(theta)*higher_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield3)
+  y4= math.sin(theta)*higher_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield3)
+  x5= math.cos(theta)*higher_shield3-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
+  y5= math.sin(theta)*higher_shield3+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
   out+="\n\t<xtru name=\"solid_shield3_top_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
+  out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield3/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield3/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t</xtru>"
 
   x1= math.cos(theta)*lower_shield4-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
   y1= math.sin(theta)*lower_shield4+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
-  x2= math.cos(theta)*lower_shield4-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-1)
-  y2= math.sin(theta)*lower_shield4+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-1)
-  x3= math.cos(theta)*higher_shield4-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-3)
-  y3= math.sin(theta)*higher_shield4+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-3)
+  x2= math.cos(theta)*lower_shield4-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthbot_shield4)
+  y2= math.sin(theta)*lower_shield4+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthbot_shield4)
+  x3= math.cos(theta)*higher_shield4-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield4)
+  y3= math.sin(theta)*higher_shield4+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance-widthtop_shield4)
   x4= math.cos(theta)*higher_shield4-math.sin(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
   y4= math.sin(theta)*higher_shield4+math.cos(theta)*(-p["C_dy"]/2-p["E_dy"]-shield_clearance)
   out+="\n\t<xtru name=\"solid_shield4_top_"+str(i)+"\"  lunit=\"mm\">"
@@ -214,13 +238,16 @@ for i in range(1,8):
 
   x1= math.cos(theta)*lower_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
   y1= math.sin(theta)*lower_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
-  x2= math.cos(theta)*lower_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+1)
-  y2= math.sin(theta)*lower_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+1)
-  x3= math.cos(theta)*higher_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+3)
-  y3= math.sin(theta)*higher_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+3)
-  x4= math.cos(theta)*higher_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
-  y4= math.sin(theta)*higher_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
+  x2= math.cos(theta)*lower_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthbot_shield1)
+  y2= math.sin(theta)*lower_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthbot_shield1)
+  x3= math.cos(theta)*intermediate_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield1)
+  y3= math.sin(theta)*intermediate_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield1)
+  x4= math.cos(theta)*higher_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield1)
+  y4= math.sin(theta)*higher_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield1)
+  x5= math.cos(theta)*higher_shield1-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
+  y5= math.sin(theta)*higher_shield1+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
   out+="\n\t<xtru name=\"solid_shield1_bot_"+str(i)+"\"  lunit=\"mm\">"
+  out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
@@ -231,13 +258,16 @@ for i in range(1,8):
 
   x1= math.cos(theta)*lower_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
   y1= math.sin(theta)*lower_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
-  x2= math.cos(theta)*lower_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+1)
-  y2= math.sin(theta)*lower_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+1)
-  x3= math.cos(theta)*higher_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+3)
-  y3= math.sin(theta)*higher_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+3)
-  x4= math.cos(theta)*higher_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
-  y4= math.sin(theta)*higher_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
+  x2= math.cos(theta)*lower_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthbot_shield2)
+  y2= math.sin(theta)*lower_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthbot_shield2)
+  x3= math.cos(theta)*intermediate_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield2)
+  y3= math.sin(theta)*intermediate_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield2)
+  x4= math.cos(theta)*higher_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield2)
+  y4= math.sin(theta)*higher_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield2)
+  x5= math.cos(theta)*higher_shield2-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
+  y5= math.sin(theta)*higher_shield2+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
   out+="\n\t<xtru name=\"solid_shield2_bot_"+str(i)+"\"  lunit=\"mm\">"
+  out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
@@ -248,13 +278,16 @@ for i in range(1,8):
 
   x1= math.cos(theta)*lower_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
   y1= math.sin(theta)*lower_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
-  x2= math.cos(theta)*lower_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+1)
-  y2= math.sin(theta)*lower_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+1)
-  x3= math.cos(theta)*higher_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+3)
-  y3= math.sin(theta)*higher_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+3)
-  x4= math.cos(theta)*higher_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
-  y4= math.sin(theta)*higher_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
+  x2= math.cos(theta)*lower_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthbot_shield3)
+  y2= math.sin(theta)*lower_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthbot_shield3)
+  x3= math.cos(theta)*intermediate_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield3)
+  y3= math.sin(theta)*intermediate_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield3)
+  x4= math.cos(theta)*higher_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield3)
+  y4= math.sin(theta)*higher_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield3)
+  x5= math.cos(theta)*higher_shield3-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
+  y5= math.sin(theta)*higher_shield3+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
   out+="\n\t<xtru name=\"solid_shield3_bot_"+str(i)+"\"  lunit=\"mm\">"
+  out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
@@ -265,10 +298,10 @@ for i in range(1,8):
  
   x1= math.cos(theta)*lower_shield4-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
   y1= math.sin(theta)*lower_shield4+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
-  x2= math.cos(theta)*lower_shield4-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+1)
-  y2= math.sin(theta)*lower_shield4+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+1)
-  x3= math.cos(theta)*higher_shield4-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+3)
-  y3= math.sin(theta)*higher_shield4+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+3)
+  x2= math.cos(theta)*lower_shield4-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthbot_shield4)
+  y2= math.sin(theta)*lower_shield4+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthbot_shield4)
+  x3= math.cos(theta)*higher_shield4-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield4)
+  y3= math.sin(theta)*higher_shield4+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance+widthtop_shield4)
   x4= math.cos(theta)*higher_shield4-math.sin(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
   y4= math.sin(theta)*higher_shield4+math.cos(theta)*(p["C_dy"]/2+p["E_dy"]+shield_clearance)
   out+="\n\t<xtru name=\"solid_shield4_bot_"+str(i)+"\"  lunit=\"mm\">"
