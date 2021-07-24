@@ -40,7 +40,6 @@ x3=[100,100,100]
 w1=[0.5, 0.5, 0.5]
 w2=[3,3,3]
 w3=[3,3,3]
-theta=[math.pi/6, math.pi/6, math.pi/6]
 zpos_shield=[5000+1050, 5000+1200, 5000+1650]
 length_shield=[100, 200, 700]
 y_off=4.5+1+0.7
@@ -151,10 +150,11 @@ for i in range(1,8):
   theta_rot=2*(i-1)*math.pi/7
 
   for j in range(0,3):
-        y3= (x3[j]-x2[j])*math.tan(theta[j])+w2[j]/math.cos(theta[j])
-	x5= x3[j]+ y3*math.tan(theta[j]) 
-	x_intermediate1= x5-(x5-x2[j])*(math.sin(theta[j]))**2
-	y_intermediate1= (x5-x2[j])*math.sin(theta[j])*math.cos(theta[j])
+        theta= np.arctan((w2[j]-w1[j])/(x2[j]-x1[j]))
+        y3= (x3[j]-x2[j])*math.tan(theta)+w2[j]
+	x5= x3[j]+ y3*math.tan(theta) 
+	x_intermediate1= x5-(x5-x2[j])*(math.sin(theta))**2
+	y_intermediate1= (x5-x2[j])*math.sin(theta)*math.cos(theta)
 
         x=[]
         y=[]
@@ -163,8 +163,8 @@ for i in range(1,8):
 
         x.append(x1[j])
         x.append(x2[j])
-        x.append(x_intermediate1-w3[j]*math.cos(theta[j]))
-        x.append(x5-w3[j]/math.cos(theta[j]))
+        x.append(x_intermediate1-w3[j]*math.cos(theta))
+        x.append(x5-w3[j]/math.cos(theta))
         x.append(x5)
         x.append(x3[j])
         x.append(x2[j])
@@ -173,20 +173,20 @@ for i in range(1,8):
 
         y.append(y_off)
         y.append(y_off)
-        y.append(y_off+y_intermediate1-w3[j]*math.sin(theta[j]))
+        y.append(y_off+y_intermediate1-w3[j]*math.sin(theta))
         y.append(y_off)
         y.append(y_off)
         y.append(y_off+y3)
-        y.append(y_off+w2[j]/math.cos(theta[j]))
+        y.append(y_off+w2[j]/math.cos(theta))
         y.append(y_off+w1[j])
 
         yneg.append(-y_off)
         yneg.append(-y_off)
-        yneg.append(-y_off-y_intermediate1+w3[j]*math.sin(theta[j]))
+        yneg.append(-y_off-y_intermediate1+w3[j]*math.sin(theta))
         yneg.append(-y_off)
         yneg.append(-y_off)
         yneg.append(-y_off-y3)
-        yneg.append(-y_off-w2[j]/math.cos(theta[j]))
+        yneg.append(-y_off-w2[j]/math.cos(theta))
         yneg.append(-y_off-w1[j])
     
  
