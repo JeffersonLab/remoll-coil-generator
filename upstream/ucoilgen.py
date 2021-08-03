@@ -35,13 +35,13 @@ p["C_zpos"]=p["C_z1_up"]+p["C_l_arm"]/2-7000   ## The 7000 needs to be the cente
 
 
 x1=[33,33,33]
-x2=[50,50,50]
+x2=[50,50,40]
 x3=[100,100,100]
 w1=[0.5, 0.5, 0.5]
 w2=[3,3,3]
 w3=[3,3,3]
-zpos_shield=[5000+1001.5, 5000+1151.5, 5000+1650]
-length_shield=[3, 297, 700]
+zpos_shield=[5000+1050, 5000+1200, 5000+1650]
+length_shield=[100, 200, 700]
 y_off=4.5+1+0.7
 zpos_shield1=zpos_shield[0]
 zpos_shield2=zpos_shield[1]
@@ -173,15 +173,21 @@ for i in range(1,8):
 
         y.append(y_off)
         y.append(y_off)
-        if not j==0:
-           y.append(y_off+y_intermediate1-w3[j]*math.sin(theta))
-        else: 
-           y.append(y_off)
+        y.append(y_off+y_intermediate1-w3[j]*math.sin(theta))
         y.append(y_off)
         y.append(y_off)
         y.append(y_off+y3)
         y.append(y_off+w2[j]/math.cos(theta))
         y.append(y_off+w1[j])
+
+        yneg.append(-y_off)
+        yneg.append(-y_off)
+        yneg.append(-y_off-y_intermediate1+w3[j]*math.sin(theta))
+        yneg.append(-y_off)
+        yneg.append(-y_off)
+        yneg.append(-y_off-y3)
+        yneg.append(-y_off-w2[j]/math.cos(theta))
+        yneg.append(-y_off-w1[j])
     
  
   	out+="\n\t<xtru name=\"solid_shield"+str(j+1)+"_top_"+str(i)+"\"  lunit=\"mm\">"
@@ -193,7 +199,7 @@ for i in range(1,8):
 
         out+="\n\t<xtru name=\"solid_shield"+str(j+1)+"_bot_"+str(i)+"\"  lunit=\"mm\">"
         for k in range(0, len(x)):
-                out+="\n\t\t<twoDimVertex x=\""+str(math.cos(theta_rot)*x[len(x)-k-1]+math.sin(theta_rot)*y[len(x)-k-1])+"\" y=\""+str(math.sin(theta_rot)*x[len(x)-k-1]-math.cos(theta_rot)*y[len(x)-k-1])+"\" />"
+                out+="\n\t\t<twoDimVertex x=\""+str(math.cos(theta_rot)*x[len(x)-k-1]-math.sin(theta_rot)*yneg[len(x)-k-1])+"\" y=\""+str(math.sin(theta_rot)*x[len(x)-k-1]+math.cos(theta_rot)*yneg[len(x)-k-1])+"\" />"
         out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield[j]/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
         out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield[j]/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
         out+="\n\t</xtru>"
