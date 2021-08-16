@@ -75,6 +75,16 @@ twobounce_groove_rmax=36
 twobounce_groove_angdim= 28.0  # degrees
 twobounce_groove_angpos= (360.0-twobounce_groove_angdim*7.0)/7.0  # degrees
 
+
+#2bounce shield extends from 5982.15 to 8024.15
+#Mother volume extends from 5975.67175 to 8024.32825
+twobounce_connector_beginz= [5975.67175, 5982.15]
+twobounce_connector_endz=[5982.15, 5990.15]
+twobounce_connector_rmin=[19, 19]
+twobounce_connector_rmax=[33, 27]
+twobounce_connector_zpos=[5980, 5985] # Just has to be a point between start and end
+
+
 shield_clearance=0.7
 
 r_inner_mother=0     #p["C_x1_low"]-p["E_dy"]-0.01-0.01
@@ -358,14 +368,15 @@ out+="\n\t</polycone>"
 
 
 
+out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_US_toroidMother\">"
+out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(5900-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(l_mother/2)+"\"/>"
+out+="\n\t</polycone>"
 
 
-out+="\n\t<cone name=\"solid_US_toroidMother\" rmin1=\""+str(r_inner_mother)+"\"  rmax1=\""+str(r_outer_mother)+"\" rmin2=\""+str(r_inner_mother+(p["C_x2_low"]-p["C_x1_low"])/16)+"\" rmax2=\""+str(r_outer_mother)+"\" z=\""+str(l_mother)+"\" startphi=\"0\" deltaphi=\"360\" aunit=\"deg\" lunit=\"mm\"/>\n"
 
+#out+="\n\t<cone name=\"solid_US_toroidMother\" rmin1=\""+str(r_inner_mother)+"\"  rmax1=\""+str(r_outer_mother)+"\" rmin2=\""+str(r_inner_mother)+"\" rmax2=\""+str(r_outer_mother)+"\" z=\""+str(l_mother)+"\" startphi=\"0\" deltaphi=\"360\" aunit=\"deg\" lunit=\"mm\"/>\n"
 
-
-
-print(str(r_inner_mother+(p["C_x2_low"]-p["C_x1_low"])/12))
 
 out+="\n</solids>\n"
 
@@ -472,6 +483,19 @@ for i in range(1,8):
         out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(4035+i)+"\"/>"
         out+="\n\t</volume>\n"
 
+
+
+for i in range(1,2):
+        out+="\n\t<volume name=\"logic_twobounce_connector_"+str(i)+"\">"
+        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<solidref ref=\"solid_twobounce_connector_"+str(i)+"\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+        out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(90+i)+"\"/>"
+        out+="\n\t</volume>\n"
+
+
+
 out+="\n\t<volume name=\"logic_twobounce_long\">"
 out+="\n\t\t<materialref ref=\"G4_W\"/>"
 out+="\n\t\t<solidref ref=\"solid_twobounce_long\"/>"
@@ -559,6 +583,16 @@ for i in range(1,8):
         out+="\n\t\t\t<position name=\"pos_twobounce_groove_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(p["C_zpos"]-(-twobounce_zpos+7000))+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_twobounce_groove_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta-(twobounce_groove_angpos*math.pi/360))+"\"/>"
         out+="\n\t\t</physvol>\n"
+
+
+
+for i in range(1,2):
+        out+="\n\t\t<physvol name=\"twobounce_connector_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_twobounce_connector_"+str(i)+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_twobounce_connector_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(p["C_zpos"]-(-twobounce_connector_zpos[i]+7000))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_twobounce_connector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
+        out+="\n\t\t</physvol>\n"
+
 
 
 out+="\n\t\t<physvol name=\"twobounce_long\">"
