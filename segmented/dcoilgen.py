@@ -34,7 +34,7 @@ for i in range(1,4):
   
 
 
-for i in ["tb", "mid"]:
+for i in ["mid"]:
   p["C4_"+str(i)+"_l_arm"]= p["C4_"+str(i)+"_z2_up"]-p["C4_"+str(i)+"_z1_up"]
   p["C4_"+str(i)+"_rad_front"]= (p["C4_"+str(i)+"_x1_up"]-p["C4_"+str(i)+"_x1_low"])/2.0
   p["C4_"+str(i)+"_rad_back"]= (p["C4_"+str(i)+"_x2_up"]-p["C4_"+str(i)+"_x2_low"])/2.0
@@ -118,7 +118,7 @@ out+="</materials>\n"
 
 out+="\n\n<solids>\n"
 
-
+"""
 #photon collimator solid
 out+="\n\t<xtru name=\"solid_photon_collimator\" lunit=\"mm\">"
 out+="\n\t\t<twoDimVertex x=\""+str(-r_extent_photon/2)+"\" y=\""+str(h_inner_photon/2)+"\"/>"
@@ -146,7 +146,7 @@ out+="\n\t</xtru>\n"
 
 #septapus tube
 out+="\n\t<tube name=\"solid_septapus_tube\" rmin=\""+str(r_start_septapus-dx_septapus/2)+"\"  rmax=\""+str(r_start_septapus+dx_septapus/2)+"\" z=\""+str(l_mother/2+(z_start_septapus-p["C_COM"]))+"\" startphi=\"0\" deltaphi=\"360\" aunit=\"deg\" lunit=\"mm\"/>\n"
-
+"""
 
 
 for j in range(1,4):
@@ -189,7 +189,7 @@ for j in range(1,4):
 
 
 
-for j in ["mid","tb"]:
+for j in ["mid"]:
   xoff={}
   yoff={}
   xoff["C4_"+str(j)]=0
@@ -197,15 +197,13 @@ for j in ["mid","tb"]:
   xoff["inner_E4_"+str(j)]= -p["C4_"+str(j)+"_dx"]
   yoff["C4_"+str(j)]=0
   if j=="mid":
-    yoff["outer_E4_"+str(j)]=( 2*p["E_tb_dy"]+2*p["E_mid_dy"]+p["C4_"+str(j)+"_dy"] )/2
-    print( yoff["outer_E4_"+str(j)] )
-  else:
-    yoff["outer_E4_"+str(j)]= p["E_dy"]/2
+    yoff["outer_E4_"+str(j)]=(2*p["E_mid_dy"]+2*p["E_dy"]+p["C4_"+str(j)+"_dy"] )/2
+    print(yoff["outer_E4_"+str(j)])
   yoff["inner_E4_"+str(j)]= 0
   for i in ["C4_", "outer_E4_","inner_E4_"]:
     out+="\n\t<xtru name=\"solid_"+i+str(j)+"_mid\"  lunit=\"mm\">"
     out+="\n\t\t<twoDimVertex x=\""+str(xoff[i+str(j)]+ p["C4_"+str(j)+"_x2_up"]-p["C4_"+str(j)+"_rpos"])+"\" y=\""+str(p["C4_"+str(j)+"_z2_up"]-p["C4_"+str(j)+"_z1_up"])+"\" />"
-    for k in reversed(range(3,23)):
+    for k in reversed(range(3,24)):
       out+="\n\t\t<twoDimVertex x=\""+str(xoff[i+str(j)]+ p["C4_"+str(j)+"_x"+str(k)+"_up"]-p["C4_"+str(j)+"_rpos"])+"\" y=\""+str(p["C4_"+str(j)+"_z"+str(k)+"_up"]-p["C4_"+str(j)+"_z1_up"])+"\" />"
 
     out+="\n\t\t<twoDimVertex x=\""+str(xoff[i+str(j)]+ p["C4_"+str(j)+"_x1_up"]-p["C4_"+str(j)+"_rpos"])+"\" y=\""+str(p["C4_"+str(j)+"_z1_up"]-p["C4_"+str(j)+"_z1_up"])+"\" />"
@@ -235,42 +233,7 @@ for j in ["mid","tb"]:
     out+="\n\t\t</union>\n"
     
 
-pancake_solid={}
-pancake_ypos={}
-pancake_zpos={}
-pancake_solid["top"]="tb"
-pancake_solid["mid"]="mid"
-pancake_solid["bot"]="tb"
-pancake_zpos["top"]=p["C4_mid_dy"]+p["E_mid_dy"]+p["E_tb_dy"]+p["C4_tb_dy"]/2+p["E_dy"]/2
-pancake_zpos["mid"]=0
-pancake_zpos["bot"]=-pancake_zpos["top"]
-pancake_ypos["mid"]=0
-#pancake_ypos["top"]= abs(p["C4_tb_l_arm"]/2-p["C4_mid_l_arm"]/2)-abs(p["C4_mid_rad_front"]-p["C4_tb_rad_front"])
 
-
-
-pancake_ypos["top"]= p["C4_mid_rad_front"]-p["C4_tb_rad_front"]
-pancake_ypos["bot"]=pancake_ypos["top"]
-
-
-##### Making the outer logical volume for coil 4
-out+="\n\t<union name=\"solid_outer_E4_submodule\">"
-out+="\n\t\t<first ref=\"solid_outer_E4_mid\"/>"
-out+="\n\t\t<second ref=\"solid_outer_E4_tb\"/>"
-out+="\n\t\t<position name=\"position\"  x=\""+str(0)+"\" y=\""+str(pancake_ypos["top"])+"\" z=\""+str(pancake_zpos["top"])+"\"/>"
-out+="\n\t</union>"
-
-
-out+="\n\t<union name=\"solid_outer_E4\">"
-out+="\n\t\t<first ref=\"solid_outer_E4_submodule\"/>"
-out+="\n\t\t<second ref=\"solid_outer_E4_tb\"/>"
-out+="\n\t\t<position name=\"position\"  x=\""+str(0)+"\" y=\""+str(pancake_ypos["bot"])+"\" z=\""+str(pancake_zpos["bot"])+"\"/>"
-out+="\n\t</union>"
-
-
-
-
-print("offset:" +str(pancake_ypos["top"])+"\n")
 
 
 ### Downstream toroid mother
@@ -282,29 +245,24 @@ out+="\n</solids>\n"
 out+="\n\n<structure>\n"
 
 
-out+="\n\t<volume name=\"logic_septapus_tube\">"
-out+="\n\t\t<materialref ref=\"G4_W\"/>"
-out+="\n\t\t<solidref ref=\"solid_septapus_tube\"/>"
-out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
-out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(56)+"\"/>"
-out+="\n\t</volume>\n"
 
 for i in range(1,8):
    #Setting up photon collimator
+   """
    out+="\n\t<volume name=\"logic_photon_collimator_"+str(i)+"\">"
    out+="\n\t\t<materialref ref=\"G4_CW95\"/>"
    out+="\n\t\t<solidref ref=\"solid_photon_collimator\"/>"
    out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
    out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(2005)+"\"/>"
    out+="\n\t</volume>\n"
-
+   
    out+="\n\t<volume name=\"logic_septapus_arm_"+str(i)+"\">"
    out+="\n\t\t<materialref ref=\"G4_W\"/>"
    out+="\n\t\t<solidref ref=\"solid_septapus_arm\"/>"
    out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
    out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(56)+"\"/>"
    out+="\n\t</volume>\n"
-
+   """ 
 
    ### Setting up coils
    for j in range(1,4):
@@ -344,23 +302,15 @@ for i in range(1,8):
    realsol={}
    realypos={}
    realzpos={}
-   realsol["top"]="tb"
    realsol["topmid"]="mid"
    realsol["botmid"]="mid"
-   realsol["bot"]="tb"
-   realzpos["top"]=p["C4_mid_dy"]+p["E_mid_dy"]+p["E_tb_dy"]+p["C4_tb_dy"]/2
    realzpos["topmid"]=p["C4_mid_dy"]/2+p["E_mid_dy"]
    realzpos["botmid"]=-realzpos["topmid"]
-   realzpos["bot"]= -realzpos["top"]
    realypos["topmid"]=0
    realypos["botmid"]=0
  #  realypos["top"]=   abs(p["C4_tb_l_arm"]/2-p["C4_mid_l_arm"]/2)-abs(p["C4_mid_rad_front"]-p["C4_tb_rad_front"])
-   realypos["top"]= p["C4_mid_rad_front"]-p["C4_tb_rad_front"]
 
-   realypos["bot"]=realypos["top"]
-
-
-   for j in ["top", "topmid", "botmid", "bot"]:
+   for j in ["topmid", "botmid"]:
         out+="\n\t<volume name=\"logic_inner_E4_"+str(j)+"_"+str(i)+"\">"
         out+="\n\t\t<materialref ref=\"G10\"/>"
         out+="\n\t\t<solidref ref=\"solid_inner_E4_"+str(realsol[j])+"\"/>"
@@ -384,13 +334,13 @@ for i in range(1,8):
 
    out+="\n\t<volume name=\"logic_outer_E4_"+str(i)+"\">"
    out+="\n\t\t<materialref ref=\"G10\"/>"
-   out+="\n\t\t<solidref ref=\"solid_outer_E4\"/>"
+   out+="\n\t\t<solidref ref=\"solid_outer_E4_mid\"/>"
    out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"orange\"/>"
    out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
    out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(3007+i)+"\"/>"
 
    
-   for j in ["top", "bot", "topmid","botmid"]:
+   for j in ["topmid","botmid"]:
       out+="\n\t\t\t<physvol name=\"C4_"+str(j)+"\">"
       out+="\n\t\t\t\t<volumeref ref=\"logic_C4_"+str(j)+"_"+str(i)+"\"/>"
       out+="\n\t\t\t\t<position name=\"pos_logic_C4_"+str(j)+"_"+str(i)+"\" y=\""+str(realypos[j])+"\" z=\""+str(realzpos[j])+"\"/>"
@@ -421,7 +371,7 @@ for i in range(1,8):
         out+="\n\t\t\t<rotation name=\"rot_dcoil"+str(j)+"_"+str(i)+"\" x=\"pi/2\" y=\""+str(theta)+"\" z=\""+str(0)+"\"/>"
         out+="\n\t\t</physvol>\n"
 
-
+"""
    rpos=r_inner_photon+r_extent_photon/2
    theta=2*i*math.pi/7+2*math.pi/14
    xpos=rpos*(math.cos(theta))
@@ -433,7 +383,9 @@ for i in range(1,8):
    out+="\n\t\t\t<position name=\"pos_photon_collimator_"+str(i)+"\" x=\""+str(xpos)+"\" y=\""+str(ypos)+"\" z=\""+str(zpos)+"\"/>"
    out+="\n\t\t\t<rotation name=\"rot_photon_collimator_"+str(i)+"\" x=\""+str(0)+"\" y=\"0\" z=\""+str(-theta)+"\"/>"
    out+="\n\t\t</physvol>\n"
+"""
 
+"""
    rpos=r_start_septapus
    theta=2*i*math.pi/7
    xpos=rpos*(math.cos(theta))
@@ -451,7 +403,7 @@ out+="\n\t\t<physvol name=\"septapus_tube\">"
 out+="\n\t\t\t<volumeref ref=\"logic_septapus_tube\"/>"
 out+="\n\t\t\t<position name=\"pos_septapus_tube\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(z_start_septapus-p["C_COM"]-((z_start_septapus-p["C_COM"])+l_mother/2)/2)+"\"/>"
 out+="\n\t\t</physvol>\n"
-
+"""
 
 
 
