@@ -65,22 +65,33 @@ zpos_shield4=5000+2375
 widthbot_shield4=0.5
 widthtop_shield4=3
 
-twobounce_beginz= 5000+ 900+13.05+19.1+50
+twobounce_beginz= 5000+ 900+13.05+19.1+50+600
 twobounce_endz = 5000.0 + 900.0 + 13.05 + 19.1 + 50.0 + 2042.0
-twobounce_rmin= 27
+twobounce_rmin= 24.5
 twobounce_rmax= 32
 twobounce_zpos= 5000+2000
 
 twobounce_groove_rmax=36
 twobounce_groove_angdim= 28.0  # degrees
 twobounce_groove_angpos= (360.0-twobounce_groove_angdim*7.0)/7.0  # degrees
+twobounce_groove_beginz= 5000+ 900+13.05+19.1+50
+twobounce_groove_endz = 5000.0 + 900.0 + 13.05 + 19.1 + 50.0 + 2042.0
+twobounce_groove_zpos= 5000+2000
+
 
 
 twobounce_connector_beginz= [5900, 5932.15, 5982.15]
-twobounce_connector_endz=[5932.15, 5982.15, 5990.15]
+twobounce_connector_endz=[5932.15, 5982.15, 5982.15+600]
 twobounce_connector_rmin=[19, 19, 19]
-twobounce_connector_rmax=[22, 33, 27]
+twobounce_connector_rmax=[33, 33, 32]
 twobounce_connector_zpos=[5916.075,5957.15, 5986.15] # Just has to be a point between start and end
+
+nose_protector_angdim= 22.0     # degrees
+nose_protector_beginz= 5982     
+nose_protector_endz= 5988
+nose_protector_rmin= 32
+nose_protector_rmax= 120
+nose_protector_zpos= 5985
 
 
 shield_clearance=0.7
@@ -355,9 +366,29 @@ out+="\n\t\t <zplane rmin=\""+str(twobounce_rmin)+"\" rmax=\""+str(twobounce_rma
 out+="\n\t</polycone>"
 
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\""+str(twobounce_groove_angdim)+"\" lunit=\"mm\" name=\"solid_twobounce_groove\">"
-out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax)+"\" rmax=\""+str(twobounce_groove_rmax)+"\" z=\""+str(twobounce_beginz-twobounce_zpos)+"\"/>"
-out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax)+"\" rmax=\""+str(twobounce_groove_rmax)+"\" z=\""+str(twobounce_endz-twobounce_zpos)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax)+"\" rmax=\""+str(twobounce_groove_rmax)+"\" z=\""+str(twobounce_groove_beginz-twobounce_groove_zpos)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax)+"\" rmax=\""+str(twobounce_groove_rmax)+"\" z=\""+str(twobounce_groove_endz-twobounce_groove_zpos)+"\"/>"
 out+="\n\t</polycone>"
+
+
+
+x1=33
+y1=-5.5
+x2=120
+y2=-5.5
+x3=120
+y3=5.5
+x4=33
+y4=5.5
+
+out+="\n\t<xtru name=\"solid_nose_protector\"  lunit=\"mm\">"
+out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
+out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
+out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
+out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(nose_protector_beginz-nose_protector_zpos)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(nose_protector_endz-nose_protector_zpos)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+out+="\n\t</xtru>"
 
 
 ### Upstream toroid mother
@@ -511,6 +542,15 @@ out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(96)+"\"/>"
 out+="\n\t</volume>\n"
          
 
+out+="\n\t<volume name=\"logic_nose_protector\">"
+out+="\n\t\t<materialref ref=\"G4_W\"/>"
+out+="\n\t\t<solidref ref=\"solid_nose_protector\"/>"
+out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
+out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(97)+"\"/>"
+out+="\n\t</volume>\n"
+
+
 out+="\n\t<volume name=\"US_toroidMother\">"
 out+="\n\t\t<materialref ref=\"G4_Galactic\"/>"
 out+="\n\t\t<solidref ref=\"solid_US_toroidMother\"/>"
@@ -582,6 +622,11 @@ for i in range(1,8):
         out+="\n\t\t\t<rotation name=\"rot_twobounce_groove_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta-(twobounce_groove_angpos*math.pi/360))+"\"/>"
         out+="\n\t\t</physvol>\n"
 
+        out+="\n\t\t<physvol name=\"nose_protector_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_nose_protector\"/>"
+        out+="\n\t\t\t<position name=\"pos_nose_protector_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-nose_protector_zpos+7000))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_nose_protector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
+        out+="\n\t\t</physvol>\n"
 
 
 for i in range(0,3):
