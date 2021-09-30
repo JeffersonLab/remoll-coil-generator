@@ -79,7 +79,14 @@ r_end_septapus= 46.0  # 45 Lifting the shield up by a mm
 z_start_septapus=p["C1_z1_low"]
 dz_septapus= 3500.0
 
+# Epoxy protector
+epoxy_protector_beginz = [10001.227,11038.541,12097.0]
+epoxy_protector_endz = [10857.536,11874.961,12844.81]
+epoxy_protector_rmin = [38, 40.5, 43]
+epoxy_protector_rmax = [41, 43.5, 46]
+epoxy_protector_zpos = [epoxy_protector_beginz[i]+(epoxy_protector_beginz[i]-epoxy_protector_endz[i])/2.0 for i in range(0,3)]
 
+print(epoxy_protector_zpos)
 
 f=open(output_file+".gdml", "w+")
 
@@ -235,6 +242,24 @@ for j in ["mid"]:
 
 
 
+for i in range(0,3):
+   x1= epoxy_protector_rmin[i]
+   y1=-p["C"+str(i+1)+"_dy"]/2-p["E_dy"]
+   x2= epoxy_protector_rmax[i]
+   y2=-p["C"+str(i+1)+"_dy"]/2-p["E_dy"]
+   x3= epoxy_protector_rmax[i]
+   y3=p["C"+str(i+1)+"_dy"]/2+p["E_dy"]
+   x4= epoxy_protector_rmin[i]
+   y4=p["C"+str(i+1)+"_dy"]/2+p["E_dy"]
+   out+="\n\t<xtru name=\"solid_epoxy_protector_"+str(i+1)+"\"  lunit=\"mm\">"
+   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
+   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
+   out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
+   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(epoxy_protector_beginz[i]-epoxy_protector_zpos[i])+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+   out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(epoxy_protector_endz[i]-epoxy_protector_zpos[i])+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+   out+="\n\t</xtru>"
+
 
 ### Downstream toroid mother
 out+="\n\t<tube name=\"solid_DS_toroidMother\" rmin=\""+str(r_inner_mother)+"\"  rmax=\""+str(r_outer_mother)+"\" z=\""+str(l_mother)+"\" startphi=\"0\" deltaphi=\"360\" aunit=\"deg\" lunit=\"mm\"/>\n"
@@ -348,7 +373,12 @@ for i in range(1,8):
 
    out+="\n\t</volume>\n"
 
-
+for i in range(0,3):
+  out+="\n\t<volume name=\"logic_epoxy_protector_"+str(i+1)+"\">"
+  out+="\n\t\t<materialref ref=\"G4_W\"/>"
+  out+="\n\t\t<solidref ref=\"solid_epoxy_protector_"+str(i+1)+"\"/>"
+  out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
+  out+="\n\t</volume>\n"
 
 
 out+="\n\t<volume name=\"DS_toroidMother\">"
@@ -370,6 +400,16 @@ for i in range(1,8):
         out+="\n\t\t\t<position name=\"pos_dcoil"+str(j)+"_"+str(i)+"\" x=\""+str(xpos)+"\" y=\""+str(ypos)+"\" z=\""+str(zpos)+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_dcoil"+str(j)+"_"+str(i)+"\" x=\"pi/2\" y=\""+str(theta)+"\" z=\""+str(0)+"\"/>"
         out+="\n\t\t</physvol>\n"
+         
+        if j<4:
+	   out+="\n\t\t<physvol name=\"epoxy_protector_"+str(j)+"_"+str(i)+"\">"
+           out+="\n\t\t\t<volumeref ref=\"logic_epoxy_protector_"+str(j)+"\"/>"
+           out+="\n\t\t\t<position name=\"pos_epoxy_protector_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-epoxy_protector_zpos[j-1]+p["C_COM"]))+"\"/>"
+           out+="\n\t\t\t<rotation name=\"rot_epoxy_protector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
+           out+="\n\t\t</physvol>\n"
+
+
+
 
 """
    rpos=r_inner_photon+r_extent_photon/2
