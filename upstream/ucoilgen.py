@@ -541,7 +541,7 @@ out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
 out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(96)+"\"/>"
 out+="\n\t</volume>\n"
          
-
+"""
 out+="\n\t<volume name=\"logic_nose_protector\">"
 out+="\n\t\t<materialref ref=\"G4_W\"/>"
 out+="\n\t\t<solidref ref=\"solid_nose_protector\"/>"
@@ -549,7 +549,7 @@ out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
 out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
 out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(97)+"\"/>"
 out+="\n\t</volume>\n"
-
+"""
 
 out+="\n\t<volume name=\"US_toroidMother\">"
 out+="\n\t\t<materialref ref=\"G4_Galactic\"/>"
@@ -621,13 +621,13 @@ for i in range(1,8):
         out+="\n\t\t\t<position name=\"pos_twobounce_groove_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_zpos+7000))+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_twobounce_groove_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta-(twobounce_groove_angpos*math.pi/360))+"\"/>"
         out+="\n\t\t</physvol>\n"
-
+"""
         out+="\n\t\t<physvol name=\"nose_protector_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_nose_protector\"/>"
         out+="\n\t\t\t<position name=\"pos_nose_protector_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-nose_protector_zpos+7000))+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_nose_protector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
         out+="\n\t\t</physvol>\n"
-
+"""
 
 for i in range(0,3):
         out+="\n\t\t<physvol name=\"twobounce_connector_"+str(i+1)+"\">"
