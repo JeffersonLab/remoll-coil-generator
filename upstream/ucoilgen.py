@@ -65,7 +65,7 @@ zpos_shield4=5000+2375
 widthbot_shield4=0.5
 widthtop_shield4=3
 
-twobounce_beginz= 5000+ 900+13.05+19.1+50+600
+twobounce_beginz=7100# 5000+ 900+13.05+19.1+50+600
 twobounce_endz = 5000.0 + 900.0 + 13.05 + 19.1 + 50.0 + 2042.0
 twobounce_rmin= 24.5
 twobounce_rmax= 32
@@ -80,11 +80,11 @@ twobounce_groove_zpos= 5000+2000
 
 
 
-twobounce_connector_beginz= [5900, 5932.15, 5982.15]
-twobounce_connector_endz=[5932.15, 5982.15, 5982.15+600]
-twobounce_connector_rmin=[19, 19, 19]
-twobounce_connector_rmax=[33, 33, 32]
-twobounce_connector_zpos=[5916.075,5957.15, 5986.15] # Just has to be a point between start and end
+twobounce_connector_beginz= [5900, 5932.15, 5982.15, 6500]
+twobounce_connector_endz=[5932.15, 5982.15, 6500, 7100]
+twobounce_connector_rmin=[19, 19, 19, 21]
+twobounce_connector_rmax=[33, 33, 32, 32]
+twobounce_connector_zpos=[twobounce_connector_beginz[i]+(twobounce_connector_endz[i]-twobounce_connector_beginz[i])/2.0 for i in range(0,4)] # Just has to be a point between start and end
 
 nose_protector_angdim= 22.0     # degrees
 nose_protector_beginz= 5982     
@@ -351,7 +351,7 @@ for i in range(1,8):
   out+="\n\t</xtru>"
 
 
-for i in range(0,3):
+for i in range(0,4):
     out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_twobounce_connector_"+str(i+1)+"\">"
     out+="\n\t\t <zplane rmin=\""+str(twobounce_connector_rmin[i])+"\" rmax=\""+str(twobounce_connector_rmax[i])+"\" z=\""+str(twobounce_connector_beginz[i]-twobounce_connector_zpos[i])+"\"/>"
     out+="\n\t\t <zplane rmin=\""+str(twobounce_connector_rmin[i])+"\" rmax=\""+str(twobounce_connector_rmax[i])+"\" z=\""+str(twobounce_connector_endz[i]-twobounce_connector_zpos[i])+"\"/>"
@@ -514,7 +514,7 @@ for i in range(1,8):
 
 
 
-for i in range(0,3):
+for i in range(0,4):
         out+="\n\t<volume name=\"logic_twobounce_connector_"+str(i+1)+"\">"
         out+="\n\t\t<materialref ref=\"G4_W\"/>"
         out+="\n\t\t<solidref ref=\"solid_twobounce_connector_"+str(i+1)+"\"/>"
@@ -541,7 +541,7 @@ out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
 out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(96)+"\"/>"
 out+="\n\t</volume>\n"
          
-"""
+
 out+="\n\t<volume name=\"logic_nose_protector\">"
 out+="\n\t\t<materialref ref=\"G4_W\"/>"
 out+="\n\t\t<solidref ref=\"solid_nose_protector\"/>"
@@ -549,7 +549,7 @@ out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
 out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
 out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(97)+"\"/>"
 out+="\n\t</volume>\n"
-"""
+
 
 out+="\n\t<volume name=\"US_toroidMother\">"
 out+="\n\t\t<materialref ref=\"G4_Galactic\"/>"
@@ -621,15 +621,15 @@ for i in range(1,8):
         out+="\n\t\t\t<position name=\"pos_twobounce_groove_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_zpos+7000))+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_twobounce_groove_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta-(twobounce_groove_angpos*math.pi/360))+"\"/>"
         out+="\n\t\t</physvol>\n"
-"""
+
         out+="\n\t\t<physvol name=\"nose_protector_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_nose_protector\"/>"
         out+="\n\t\t\t<position name=\"pos_nose_protector_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-nose_protector_zpos+7000))+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_nose_protector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
         out+="\n\t\t</physvol>\n"
-"""
 
-for i in range(0,3):
+
+for i in range(0,4):
         out+="\n\t\t<physvol name=\"twobounce_connector_"+str(i+1)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_twobounce_connector_"+str(i+1)+"\"/>"
         out+="\n\t\t\t<position name=\"pos_twobounce_connector_"+str(i+1)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_connector_zpos[i]+7000))+"\"/>"
