@@ -80,11 +80,12 @@ z_start_septapus=p["C1_z1_low"]
 dz_septapus= 3500.0
 
 # Epoxy protector
-epoxy_protector_beginz = [10001.227,11038.541,12097.0]
-epoxy_protector_endz = [10857.536,11874.961,12844.81]
-epoxy_protector_rmin = [38, 40.5, 43]
-epoxy_protector_rmax = [41, 43.5, 46]
-epoxy_protector_zpos = [epoxy_protector_beginz[i]+(epoxy_protector_beginz[i]-epoxy_protector_endz[i])/2.0 for i in range(0,3)]
+epoxy_protector_beginz = [10001.227, 11038.541, 12097.0, 12500.0]
+epoxy_protector_endz = [10857.536, 11874.961, 12500.0, 12844.81]
+epoxy_protector_rmin = [38, 40.5, 43, 44.2]
+epoxy_protector_rmax = [41, 43.5, 46, 46]
+epoxy_protector_dph= [p["C1_dy"]+2*p["E_dy"], p["C2_dy"]+2*p["E_dy"], p["C3_dy"]+2*p["E_dy"], p["C3_dy"]+2*p["E_dy"]]
+epoxy_protector_zpos = [epoxy_protector_beginz[i]+(epoxy_protector_beginz[i]-epoxy_protector_endz[i])/2.0 for i in range(0,4)]
 
 print(epoxy_protector_zpos)
 
@@ -242,15 +243,15 @@ for j in ["mid"]:
 
 
 
-for i in range(0,3):
+for i in range(0,4):
    x1= epoxy_protector_rmin[i]
-   y1=-p["C"+str(i+1)+"_dy"]/2-p["E_dy"]
+   y1=-epoxy_protector_dph[i]/2.0
    x2= epoxy_protector_rmax[i]
-   y2=-p["C"+str(i+1)+"_dy"]/2-p["E_dy"]
+   y2=-epoxy_protector_dph[i]/2.0
    x3= epoxy_protector_rmax[i]
-   y3=p["C"+str(i+1)+"_dy"]/2+p["E_dy"]
+   y3= epoxy_protector_dph[i]/2.0
    x4= epoxy_protector_rmin[i]
-   y4=p["C"+str(i+1)+"_dy"]/2+p["E_dy"]
+   y4= epoxy_protector_dph[i]/2.0
    out+="\n\t<xtru name=\"solid_epoxy_protector_"+str(i+1)+"\"  lunit=\"mm\">"
    out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
    out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
@@ -373,7 +374,7 @@ for i in range(1,8):
 
    out+="\n\t</volume>\n"
 
-for i in range(0,3):
+for i in range(0,4):
   out+="\n\t<volume name=\"logic_epoxy_protector_"+str(i+1)+"\">"
   out+="\n\t\t<materialref ref=\"G4_W\"/>"
   out+="\n\t\t<solidref ref=\"solid_epoxy_protector_"+str(i+1)+"\"/>"
@@ -394,19 +395,19 @@ for i in range(1,8):
         xpos=rpos*(math.cos(theta))
         ypos=rpos*(math.sin(theta))
         zpos= p["C"+str(j)+"_zpos"]- p["C"+str(j)+"_l_arm"]/2
-        if j<4:
-           out+="\n\t\t<physvol name=\"epoxy_protector_"+str(j)+"_"+str(i)+"\">"
-           out+="\n\t\t\t<volumeref ref=\"logic_epoxy_protector_"+str(j)+"\"/>"
-           out+="\n\t\t\t<position name=\"pos_epoxy_protector_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-epoxy_protector_zpos[j-1]+p["C_COM"]))+"\"/>"
-           out+="\n\t\t\t<rotation name=\"rot_epoxy_protector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
-           out+="\n\t\t</physvol>\n"
-"""
+
         out+="\n\t\t<physvol name=\"dcoil"+str(j)+"_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_outer_E"+str(j)+"_"+str(i)+"\"/>"
         out+="\n\t\t\t<position name=\"pos_dcoil"+str(j)+"_"+str(i)+"\" x=\""+str(xpos)+"\" y=\""+str(ypos)+"\" z=\""+str(zpos)+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_dcoil"+str(j)+"_"+str(i)+"\" x=\"pi/2\" y=\""+str(theta)+"\" z=\""+str(0)+"\"/>"
         out+="\n\t\t</physvol>\n"
-"""        
+   for j in range(1,5):     
+        out+="\n\t\t<physvol name=\"epoxy_protector_"+str(j)+"_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_epoxy_protector_"+str(j)+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_epoxy_protector_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-epoxy_protector_zpos[j-1]+p["C_COM"]))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_epoxy_protector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
+        out+="\n\t\t</physvol>\n"
+
 
 
 
