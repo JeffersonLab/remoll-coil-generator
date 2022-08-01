@@ -66,7 +66,7 @@ epoxy_protector_subcoil4_sectionr = [56.808, 78.652, 160.138, 129.02]
 epoxy_protector_subcoil4_relsectionr = [epoxy_protector_subcoil4_sectionr[i]-epoxy_protector_subcoil4_sectionr[0] for i in range(0,4)]
 epoxy_protector_subcoil4_sectionz = [13096.987, 14763.020, 16115.011, 16664.245]
 epoxy_protector_subcoil4_relsectionz = [epoxy_protector_subcoil4_sectionz[i]-epoxy_protector_subcoil4_sectionz[0] for i in range(0,4)]
-
+           
 f=open(output_file+".gdml", "w+")
 
 out="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -321,13 +321,12 @@ for i in range(1,8):
         xpos=rpos*(math.cos(theta))
         ypos=rpos*(math.sin(theta))
         zpos= p["C"+str(j)+"_zpos"]- p["C"+str(j)+"_l_arm"]/2
-        """
         out+="\n\t\t<physvol name=\"dcoil"+str(j)+"_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_outer_E"+str(j)+"_"+str(i)+"\"/>"
         out+="\n\t\t\t<position name=\"pos_dcoil"+str(j)+"_"+str(i)+"\" x=\""+str(xpos)+"\" y=\""+str(ypos)+"\" z=\""+str(zpos)+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_dcoil"+str(j)+"_"+str(i)+"\" x=\"pi/2\" y=\""+str(theta)+"\" z=\""+str(0)+"\"/>"
         out+="\n\t\t</physvol>\n"
-        """
+        
    for j in range(1,6):     
         out+="\n\t\t<physvol name=\"epoxy_protector_"+str(j)+"_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_epoxy_protector_"+str(j)+"\"/>"
