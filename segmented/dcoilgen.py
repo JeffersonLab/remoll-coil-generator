@@ -51,6 +51,11 @@ print("Offset from center of mass: "+ str((-p["C1_rad_front"]+p["C4_mid_rad_back
 
 print("Upstream end of mother volume: "+ str((-l_mother/2+p["C_COM"])))
 
+# Clamps
+
+clamp_subcoil1_x = [-330.200, -330.200, -66.040, -66.040, -116.840, -396.240, -396.240, -399.415, -399.415, -488.315, -501.785, -507.365, -507.365, -526.415, -526.415, -551.815]
+clamp_subcoil1_y = [10.693, 11.354, 11.354, 12.878, 24.054, 24.054, 10.693, 10.693, 29.743, 29.743, 35.323, 48.793, 86.893, 86.893, 101.6, 101.6]
+
 # Epoxy protector
 epoxy_protector_beginz = [10001.227, 11038.541, 12097.0, 12500.0, 13096.987]
 epoxy_protector_endz = [10857.536, 11874.961, 12500.0, 12844.81]
