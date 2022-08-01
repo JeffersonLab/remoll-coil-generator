@@ -228,6 +228,18 @@ for j in  range(1,5):
   out+="\n\t\t<section zOrder=\""+str(j)+"\" zPosition=\""+str(epoxy_protector_subcoil4_relsectionz[j-1])+"\" xOffset=\""+str(epoxy_protector_subcoil4_relsectionr[j-1])+"\" yOffset=\"0\" scalingFactor=\"1\"/>"
 out+="\n\t</xtru>"
 
+### clamps
+for i in range(1):
+  out+="\n\t<xtru name=\"solid_clamp_"+str(i)+"\"  lunit=\"mm\">"
+  size = len(clamp_x[i-1])
+  for j in  range(0,size):
+    out+="\n\t\t<twoDimVertex x=\""+str(clamp_x[i-1][j])+"\" y=\""+str(clamp_y[i-1][j])+"\" />"
+  for j in  range(0,size)):
+    out+="\n\t\t<twoDimVertex x=\""+str(clamp_x[i-1][size-1-j])+"\" y=\""+str(clamp_y[i-1][size-1-j])+"\" />"
+  out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(0)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(clamp_dz[i-1])+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t</xtru>"
+
 ### Downstream toroid mother
 out+="\n\t<tube name=\"solid_DS_toroidMother\" rmin=\""+str(r_inner_mother)+"\"  rmax=\""+str(r_outer_mother)+"\" z=\""+str(l_mother)+"\" startphi=\"0\" deltaphi=\"360\" aunit=\"deg\" lunit=\"mm\"/>\n"
 
@@ -322,6 +334,13 @@ for i in range(0,5):
   out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
   out+="\n\t</volume>\n"
 
+for i in range(0,1):
+  out+="\n\t<volume name=\"logic_clamp_"+str(i+1)+"\">"
+  out+="\n\t\t<materialref ref=\"G4_Al\"/>"
+  out+="\n\t\t<solidref ref=\"solid_clamp_"+str(i+1)+"\"/>"
+  out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"grey\"/>"
+  out+="\n\t</volume>\n"
+
 
 out+="\n\t<volume name=\"DS_toroidMother\">"
 out+="\n\t\t<materialref ref=\"G4_Galactic\"/>"
@@ -347,6 +366,13 @@ for i in range(1,8):
         out+="\n\t\t\t<volumeref ref=\"logic_epoxy_protector_"+str(j)+"\"/>"
         out+="\n\t\t\t<position name=\"pos_epoxy_protector_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-epoxy_protector_zpos[j-1]+p["C_COM"]))+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_epoxy_protector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
+        out+="\n\t\t</physvol>\n"
+    
+    for j in range(1):     
+        out+="\n\t\t<physvol name=\"clamp_"+str(j)+"_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_clamp_"+str(j)+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_clamp_"+str(j)+"_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-clamp_zpos[j-1]+p["C_COM"]))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_clamp_"+str(j)+"_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
         out+="\n\t\t</physvol>\n"
 
 out+="\n\t</volume>\n"
