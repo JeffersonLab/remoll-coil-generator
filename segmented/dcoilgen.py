@@ -270,9 +270,9 @@ for i in range(1,10):
   out+="\n\t<xtru name=\"solid_clamp_"+str(i)+"\"  lunit=\"mm\">"
   size = len(clamp_x[i-1])
   for j in  range(0,size):
-    out+="\n\t\t<twoDimVertex x=\""+str(clamp_x[i-1][j])+"\" y=\""+str(clamp_y[i-1][j])+"\" />"
+    out+="\n\t\t<twoDimVertex x=\""+str(clamp_x[i-1][size-1-j])+"\" y=\""+str(clamp_y[i-1][size-1-j])+"\" />"
   for j in  range(0,size):
-    out+="\n\t\t<twoDimVertex x=\""+str(clamp_x[i-1][size-1-j])+"\" y=\""+str(-clamp_y[i-1][size-1-j])+"\" />"
+    out+="\n\t\t<twoDimVertex x=\""+str(clamp_x[i-1][j])+"\" y=\""+str(-clamp_y[i-1][j])+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(0)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(clamp_dz[i-1])+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t</xtru>"
