@@ -39,8 +39,8 @@ print(p["C_COM"])
 p["C4_rpos"]= p["C4_mid_rpos"]
 p["C4_zpos"]= p["C4_mid_zpos"]
 p["C4_l_arm"]=p["C4_mid_l_arm"]
-r_inner_mother=0#p["C1_x1_low"]-2
-r_outer_mother=p["C4_mid_x4_up"]+10
+r_inner_mother=0
+r_outer_mother=700
 l_mother=2*( p["C_COM"] - p["C1_z1_up"])+p["C1_rad_front"]+p["C4_mid_rad_back"]+100
 
 print("COM: "+str(p["C_COM"]))
