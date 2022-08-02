@@ -353,7 +353,7 @@ for i in range(0,5):
   out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
   out+="\n\t</volume>\n"
 
-for i in range(0,1):
+for i in range(0,3):
   out+="\n\t<volume name=\"logic_clamp_"+str(i+1)+"\">"
   out+="\n\t\t<materialref ref=\"G4_Al\"/>"
   out+="\n\t\t<solidref ref=\"solid_clamp_"+str(i+1)+"\"/>"
