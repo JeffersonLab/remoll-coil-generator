@@ -248,7 +248,7 @@ for j in  range(1,5):
 out+="\n\t</xtru>"
 
 ### clamps
-for i in range(1,4):
+for i in range(1,7):
   out+="\n\t<xtru name=\"solid_clamp_"+str(i)+"\"  lunit=\"mm\">"
   size = len(clamp_x[i-1])
   for j in  range(0,size):
@@ -353,7 +353,7 @@ for i in range(0,5):
   out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
   out+="\n\t</volume>\n"
 
-for i in range(0,3):
+for i in range(0,6):
   out+="\n\t<volume name=\"logic_clamp_"+str(i+1)+"\">"
   out+="\n\t\t<materialref ref=\"G4_Al\"/>"
   out+="\n\t\t<solidref ref=\"solid_clamp_"+str(i+1)+"\"/>"
@@ -387,7 +387,7 @@ for i in range(1,8):
         out+="\n\t\t\t<rotation name=\"rot_epoxy_protector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
         out+="\n\t\t</physvol>\n"
     
-   for j in range(1,4):     
+   for j in range(1,7):     
         out+="\n\t\t<physvol name=\"clamp_"+str(j)+"_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_clamp_"+str(j)+"\"/>"
         out+="\n\t\t\t<position name=\"pos_clamp_"+str(j)+"_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-clamp_zpos[j-1]+p["C_COM"]))+"\"/>"
