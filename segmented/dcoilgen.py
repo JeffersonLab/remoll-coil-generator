@@ -82,7 +82,17 @@ dz_septapus= 3500.0
 # Epoxy protector
 epoxy_protector_beginz = [10001.227, 11038.541, 12097.0, 12500.0, 13096.987]
 epoxy_protector_endz = [10857.536, 11874.961, 12500.0, 12844.81]
-epoxy_protector_rmin = [38, 40.5, 43, 44.2]
+
+epoxy_protector_front_extra = [67.292, 87.935, 110.27, 0.0, 0.0] #132.8215]
+epoxy_protector_back_extra = [78.6405, 98.241, 0.0, 115.605, 0.0] #132.3835]
+
+for i in range(0, len(epoxy_protector_beginz)):
+    epoxy_protector_beginz[i] -= epoxy_protector_front_extra[i]
+
+for i in range(0, len(epoxy_protector_endz)):
+    epoxy_protector_endz[i] += epoxy_protector_back_extra[i]
+
+epoxy_protector_rmin = [38, 40.5, 43, 43]
 epoxy_protector_rmax = [41, 43.5, 46, 46]
 epoxy_protector_dph= [p["C1_dy"]+2*p["E_dy"], p["C2_dy"]+2*p["E_dy"], p["C3_dy"]+2*p["E_dy"], p["C3_dy"]+2*p["E_dy"]]
 epoxy_protector_zpos = [epoxy_protector_beginz[i] for i in range(0,5)]
@@ -281,7 +291,7 @@ out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
 out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
 out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
 out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
-for j in  range(1,5):
+for j in  range(1,3):
   out+="\n\t\t<section zOrder=\""+str(j)+"\" zPosition=\""+str(epoxy_protector_subcoil4_relsectionz[j-1])+"\" xOffset=\""+str(epoxy_protector_subcoil4_relsectionr[j-1])+"\" yOffset=\"0\" scalingFactor=\"1\"/>"
 out+="\n\t</xtru>"
 
@@ -418,13 +428,11 @@ for i in range(1,8):
         xpos=rpos*(math.cos(theta))
         ypos=rpos*(math.sin(theta))
         zpos= p["C"+str(j)+"_zpos"]- p["C"+str(j)+"_l_arm"]/2
-        """
         out+="\n\t\t<physvol name=\"dcoil"+str(j)+"_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_outer_E"+str(j)+"_"+str(i)+"\"/>"
         out+="\n\t\t\t<position name=\"pos_dcoil"+str(j)+"_"+str(i)+"\" x=\""+str(xpos)+"\" y=\""+str(ypos)+"\" z=\""+str(zpos)+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_dcoil"+str(j)+"_"+str(i)+"\" x=\"pi/2\" y=\""+str(theta)+"\" z=\""+str(0)+"\"/>"
         out+="\n\t\t</physvol>\n"
-        """
    for j in range(1,6):     
         out+="\n\t\t<physvol name=\"epoxy_protector_"+str(j)+"_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_epoxy_protector_"+str(j)+"\"/>"
