@@ -349,8 +349,8 @@ for i in range(0,2):
 out+="\n\t</polycone>"
 
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\""+str(twobounce_groove_angdim)+"\" lunit=\"mm\" name=\"solid_twobounce_groove\">"
-out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax)+"\" rmax=\""+str(twobounce_groove_rmax)+"\" z=\""+str(twobounce_groove_beginz-twobounce_groove_zpos)+"\"/>"
-out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax)+"\" rmax=\""+str(twobounce_groove_rmax)+"\" z=\""+str(twobounce_groove_endz-twobounce_groove_zpos)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax[1])+"\" rmax=\""+str(twobounce_groove_rmax)+"\" z=\""+str(twobounce_groove_beginz-twobounce_groove_zpos)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax[1])+"\" rmax=\""+str(twobounce_groove_rmax)+"\" z=\""+str(twobounce_groove_endz-twobounce_groove_zpos)+"\"/>"
 out+="\n\t</polycone>"
 
 
