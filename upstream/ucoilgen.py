@@ -597,16 +597,6 @@ for i in range(1,8):
         out+="\n\t\t\t<rotation name=\"rot_nose_protector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
         out+="\n\t\t</physvol>\n"
 
-
-for i in range(0,4):
-        out+="\n\t\t<physvol name=\"twobounce_connector_"+str(i+1)+"\">"
-        out+="\n\t\t\t<volumeref ref=\"logic_twobounce_connector_"+str(i+1)+"\"/>"
-        out+="\n\t\t\t<position name=\"pos_twobounce_connector_"+str(i+1)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_connector_zpos[i]+7000))+"\"/>"
-        out+="\n\t\t\t<rotation name=\"rot_twobounce_connector_"+str(i+1)+"\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
-        out+="\n\t\t</physvol>\n"
-
-
-
 out+="\n\t\t<physvol name=\"twobounce_long\">"
 out+="\n\t\t\t<volumeref ref=\"logic_twobounce_long\"/>"
 out+="\n\t\t\t<position name=\"pos_twobounce_long\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_zpos+7000))+"\"/>"
