@@ -22,7 +22,7 @@ p={}    # dictionary of parameter values
 with open(args.par_list) as csvfile:
      reader=csv.reader(csvfile, delimiter=',', quotechar='|')
      for row in reader:
-         if row[0].contains("mat"):
+         if "mat" in row[0]:
            p[row[0]]=row[1]
          else:
            p[row[0]]=float(row[1])
