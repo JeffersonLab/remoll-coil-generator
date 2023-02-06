@@ -22,7 +22,10 @@ p={}    # dictionary of parameter values
 with open(args.par_list) as csvfile:
      reader=csv.reader(csvfile, delimiter=',', quotechar='|')
      for row in reader:
-         p[row[0]]=float(row[1])
+         if row[0].contains("mat"):
+           p[row[0]]=row[1]
+         else:
+           p[row[0]]=float(row[1])
 
 p["C_COM"]=abs(p["C_z1_up"]-p["C_z2_up"])/2 +p["C_z1_up"]
  
@@ -429,7 +432,7 @@ for i in range(1,8):
         out+="\n\t</volume>\n"
 
         out+="\n\t<volume name=\"logic_shield1_top_"+str(i)+"\">"
-        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<materialref ref=\""+p["side_shield_mat"]+"\"/>"
         out+="\n\t\t<solidref ref=\"solid_shield1_top_"+str(i)+"\"/>"
         out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
         out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
@@ -437,7 +440,7 @@ for i in range(1,8):
         out+="\n\t</volume>\n"
 
         out+="\n\t<volume name=\"logic_shield2_top_"+str(i)+"\">"
-        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<materialref ref=\""+p["side_shield_mat"]+"\"/>"
         out+="\n\t\t<solidref ref=\"solid_shield2_top_"+str(i)+"\"/>"
         out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
         out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
@@ -445,7 +448,7 @@ for i in range(1,8):
         out+="\n\t</volume>\n"
 
         out+="\n\t<volume name=\"logic_shield3_top_"+str(i)+"\">"
-        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<materialref ref=\""+p["side_shield_mat"]+"\"/>"
         out+="\n\t\t<solidref ref=\"solid_shield3_top_"+str(i)+"\"/>"
         out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
         out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
@@ -453,7 +456,7 @@ for i in range(1,8):
         out+="\n\t</volume>\n"
 
         out+="\n\t<volume name=\"logic_shield4_top_"+str(i)+"\">"
-        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<materialref ref=\""+p["side_shield_mat"]+"\"/>"
         out+="\n\t\t<solidref ref=\"solid_shield4_top_"+str(i)+"\"/>"
         out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
         out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
@@ -463,7 +466,7 @@ for i in range(1,8):
 
 
         out+="\n\t<volume name=\"logic_shield1_bot_"+str(i)+"\">"
-        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<materialref ref=\""+p["side_shield_mat"]+"\"/>"
         out+="\n\t\t<solidref ref=\"solid_shield1_bot_"+str(i)+"\"/>"
         out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
         out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
@@ -472,7 +475,7 @@ for i in range(1,8):
 
 
         out+="\n\t<volume name=\"logic_shield2_bot_"+str(i)+"\">"
-        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<materialref ref=\""+p["side_shield_mat"]+"\"/>"
         out+="\n\t\t<solidref ref=\"solid_shield2_bot_"+str(i)+"\"/>"
         out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
         out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
@@ -480,7 +483,7 @@ for i in range(1,8):
         out+="\n\t</volume>\n"
 
         out+="\n\t<volume name=\"logic_shield3_bot_"+str(i)+"\">"
-        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<materialref ref=\""+p["side_shield_mat"]+"\"/>"
         out+="\n\t\t<solidref ref=\"solid_shield3_bot_"+str(i)+"\"/>"
         out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
         out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
@@ -488,7 +491,7 @@ for i in range(1,8):
         out+="\n\t</volume>\n"
 
         out+="\n\t<volume name=\"logic_shield4_bot_"+str(i)+"\">"
-        out+="\n\t\t<materialref ref=\"G4_W\"/>"
+        out+="\n\t\t<materialref ref=\""+p["side_shield_mat"]+"\"/>"
         out+="\n\t\t<solidref ref=\"solid_shield4_bot_"+str(i)+"\"/>"
         out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
         out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
@@ -496,7 +499,7 @@ for i in range(1,8):
         out+="\n\t</volume>\n"
 
 out+="\n\t<volume name=\"logic_twobounce_long\">"
-out+="\n\t\t<materialref ref=\"G4_W\"/>"
+out+="\n\t\t<materialref ref=\""+p["2_bounce_mat"]+"\"/>"
 out+="\n\t\t<solidref ref=\"solid_twobounce_long\"/>"
 out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
 out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
@@ -504,7 +507,7 @@ out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(95)+"\"/>"
 out+="\n\t</volume>\n"
 
 out+="\n\t<volume name=\"logic_twobounce_groove\">"
-out+="\n\t\t<materialref ref=\"G4_W\"/>"
+out+="\n\t\t<materialref ref=\""+p["2_bounce_mat"]+"\"/>"
 out+="\n\t\t<solidref ref=\"solid_twobounce_groove\"/>"
 out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
 out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
@@ -512,7 +515,7 @@ out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(96)+"\"/>"
 out+="\n\t</volume>\n"
          
 out+="\n\t<volume name=\"logic_nose_protector\">"
-out+="\n\t\t<materialref ref=\"G4_W\"/>"
+out+="\n\t\t<materialref ref=\""+p["2_bounce_mat"]+"\"/>"
 out+="\n\t\t<solidref ref=\"solid_nose_protector\"/>"
 out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
 out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
