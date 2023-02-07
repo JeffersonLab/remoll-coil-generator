@@ -40,24 +40,24 @@ intermediate_shield1=50
 higher_shield1=100
 length_shield1=100
 zpos_shield1=5000+1050
-widthbot_shield1=0.5
-widthtop_shield1=3
+widthbot_shield1=p['side_shield_width']
+widthtop_shield1=p['side_shield_width']
 
 lower_shield2=33
 intermediate_shield2=50
 higher_shield2=100
 length_shield2=200
 zpos_shield2=5000+1200
-widthbot_shield2=0.5
-widthtop_shield2=3
+widthbot_shield2=p['side_shield_width']
+widthtop_shield2=p['side_shield_width']
 
 lower_shield3=33
 intermediate_shield3=50
 higher_shield3=100
 length_shield3=700
 zpos_shield3=5000+1650
-widthbot_shield3=0.5
-widthtop_shield3=3
+widthbot_shield3=p['side_shield_width']
+widthtop_shield3=p['side_shield_width']
 
 
 lower_shield4=33
@@ -65,8 +65,8 @@ intermediate_shield4=50
 higher_shield4=100
 length_shield4=750
 zpos_shield4=5000+2375
-widthbot_shield4=0.5
-widthtop_shield4=3
+widthbot_shield4=p['side_shield_width']
+widthtop_shield4=p['side_shield_width']
 
 twobounce_groove_rmax=36
 twobounce_groove_angdim= 28.0  # degrees
