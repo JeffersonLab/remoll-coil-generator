@@ -385,7 +385,7 @@ out+="\n\t</xtru>"
 
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_US_toroidMother\">"
 out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(5900-7000)+"\"/>"
-out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(l_mother/2)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(twobounce_endz[-1]-7000)+"\"/>"
 out+="\n\t</polycone>"
 
 
