@@ -23,9 +23,9 @@ with open(args.par_list) as csvfile:
      reader=csv.reader(csvfile, delimiter=',', quotechar='|')
      for row in reader:
          if "mat" in row[0]:
-           p[row[0]]=row[1]
+           p[row[0]]=row[1].strip()
          else:
-           p[row[0]]=float(row[1])
+           p[row[0]]=float(row[1].strip())
 
 p["C_COM"]=abs(p["C_z1_up"]-p["C_z2_up"])/2 +p["C_z1_up"]
  
