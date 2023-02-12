@@ -15,4 +15,5 @@ C_dy, 9
 E_dy, 1
 2_bounce_mat, G4_W
 side_shield_mat, G4_W
+nose_shield_mat, G4_W
 side_shield_width, 0.5

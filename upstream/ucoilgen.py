@@ -515,7 +515,7 @@ out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(96)+"\"/>"
 out+="\n\t</volume>\n"
          
 out+="\n\t<volume name=\"logic_nose_protector\">"
-out+="\n\t\t<materialref ref=\""+p["2_bounce_mat"]+"\"/>"
+out+="\n\t\t<materialref ref=\""+p["nose_shield_mat"]+"\"/>"
 out+="\n\t\t<solidref ref=\"solid_nose_protector\"/>"
 out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
 out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
