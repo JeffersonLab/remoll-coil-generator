@@ -545,7 +545,7 @@ for i in range(1,8):
         
         out+="\n\t\t<physvol name=\"twobounce_groove_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_twobounce_groove\"/>"
-        out+="\n\t\t\t<position name=\"pos_twobounce_groove_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_zpos+7000))+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_twobounce_groove_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_groove_zpos+7000))+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_twobounce_groove_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta-(twobounce_groove_angpos*math.pi/360))+"\"/>"
         out+="\n\t\t</physvol>\n"
 
