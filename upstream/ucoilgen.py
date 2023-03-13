@@ -340,7 +340,7 @@ for i in range(1,8):
   out+="\n\t</xtru>"
 
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_twobounce_long\">"
-for i in range(0,2):
+for i in range(0,3):
      out+="\n\t\t <zplane rmin=\""+str(twobounce_rmin[i])+"\" rmax=\""+str(twobounce_rmax[i])+"\" z=\""+str(twobounce_beginz[i]-twobounce_zpos)+"\"/>"
      out+="\n\t\t <zplane rmin=\""+str(twobounce_rmin[i])+"\" rmax=\""+str(twobounce_rmax[i])+"\" z=\""+str(twobounce_endz[i]-twobounce_zpos)+"\"/>"
 out+="\n\t</polycone>"
