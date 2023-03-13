@@ -13,7 +13,14 @@ C_x2_low, 33
 C_dx, 47.845
 C_dy, 9
 E_dy, 1
+2_bounce_startz, 5936.5
 2_bounce_mat, G4_W
 side_shield_mat, G4_W
-nose_shield_mat, G4_W
-side_shield_width, 0.5
+side_shield_bot_width, 0.5
+side_shield_top_width, 0.5
+side_shield_height, 75
+side_shield_zstart, 6000
+side_shield_length_segment1, 400
+side_shield_length_segment2, 400
+side_shield_length_segment3, 400
+side_shield_length_segment4, 400
