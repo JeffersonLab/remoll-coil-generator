@@ -6,7 +6,9 @@ import subprocess
 import math
 import time
 import argparse
-
+def print(*args):
+    __builtins__.print(*("%.3f" % a if isinstance(a, float) else a
+                         for a in args))
 
 
 parser= argparse.ArgumentParser(description="Generate a segmented coil based on given parameters. Example: ./dcoilgen.py -l segmented.list -f test")
@@ -36,37 +38,37 @@ p["C_rpos"]=p["C_x1_low"]+ p["C_rad_front"]
 p["C_zpos"]=p["C_z1_up"]+p["C_l_arm"]/2-7000   ## The 7000 needs to be the center of the mother volume
 
 lower_shield1=33
-intermediate_shield1=50
-higher_shield1=100
-length_shield1=100
-zpos_shield1=5000+1050
-widthbot_shield1=p['side_shield_width']
-widthtop_shield1=p['side_shield_width']
+intermediate_shield1=p['side_shield_height']/2.0
+higher_shield1=p['side_shield_height']
+length_shield1=p['side_shield_length_segment1']
+zpos_shield1=p['side_shield_zstart']+length_shield1/2.0
+widthbot_shield1=p['side_shield_bot_width']
+widthtop_shield1=p['side_shield_top_width']
 
 lower_shield2=33
-intermediate_shield2=50
-higher_shield2=100
-length_shield2=200
-zpos_shield2=5000+1200
-widthbot_shield2=p['side_shield_width']
-widthtop_shield2=p['side_shield_width']
+intermediate_shield2=p['side_shield_height']/2.0
+higher_shield2=p['side_shield_height']
+length_shield2=p['side_shield_length_segment2']
+zpos_shield2=zpos_shield1+(length_shield1+length_shield2)/2.0
+widthbot_shield2=p['side_shield_bot_width']
+widthtop_shield2=p['side_shield_top_width']
 
 lower_shield3=33
-intermediate_shield3=50
-higher_shield3=100
-length_shield3=700
-zpos_shield3=5000+1650
-widthbot_shield3=p['side_shield_width']
-widthtop_shield3=p['side_shield_width']
+intermediate_shield3=p['side_shield_height']/2.0
+higher_shield3=p['side_shield_height']
+length_shield3=p['side_shield_length_segment3']
+zpos_shield3=zpos_shield2+(length_shield2+length_shield3)/2.0
+widthbot_shield3=p['side_shield_bot_width']
+widthtop_shield3=p['side_shield_top_width']
 
 
 lower_shield4=33
-intermediate_shield4=50
-higher_shield4=100
-length_shield4=750
-zpos_shield4=5000+2375
-widthbot_shield4=p['side_shield_width']
-widthtop_shield4=p['side_shield_width']
+intermediate_shield4=p['side_shield_height']/2.0
+higher_shield4=p['side_shield_height']
+length_shield4=p['side_shield_length_segment4']
+zpos_shield4=zpos_shield3+(length_shield3+length_shield4)/2.0
+widthbot_shield4=p['side_shield_bot_width']
+widthtop_shield4=p['side_shield_top_width']
 
 twobounce_groove_rmax=36
 twobounce_groove_angdim= 28.0  # degrees
@@ -75,19 +77,11 @@ twobounce_groove_beginz= 5936.5+12.7
 twobounce_groove_endz = 5936.5+2152.65-12.7
 twobounce_groove_zpos= 5000+2000
 
-twobounce_beginz= [5936.5, 5936.5+12.7, 5936.5+2152.65-12.7]
+twobounce_beginz= [p['2_bounce_startz'], 5936.5+12.7, 5936.5+2152.65-12.7]
 twobounce_endz=[5936.5+12.7, 5936.5+2152.65-12.7, 5936.5+2152.65]
 twobounce_rmin=[25, 25, 25]
-twobounce_rmax=[30.875, 33, 30.875]
+twobounce_rmax=[30.875, 32, 30.875]
 twobounce_zpos=twobounce_beginz[0]+(twobounce_endz[-1]-twobounce_beginz[0])/2.0 # Just has to be a point between start and end
-
-nose_protector_angdim= 22.0     # degrees
-nose_protector_beginz= 5982     
-nose_protector_endz= 5988
-nose_protector_rmin= 32
-nose_protector_rmax= 120
-nose_protector_zpos= 5985
-
 
 shield_clearance=0.7
 
@@ -346,7 +340,7 @@ for i in range(1,8):
   out+="\n\t</xtru>"
 
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_twobounce_long\">"
-for i in range(0,2):
+for i in range(0,3):
      out+="\n\t\t <zplane rmin=\""+str(twobounce_rmin[i])+"\" rmax=\""+str(twobounce_rmax[i])+"\" z=\""+str(twobounce_beginz[i]-twobounce_zpos)+"\"/>"
      out+="\n\t\t <zplane rmin=\""+str(twobounce_rmin[i])+"\" rmax=\""+str(twobounce_rmax[i])+"\" z=\""+str(twobounce_endz[i]-twobounce_zpos)+"\"/>"
 out+="\n\t</polycone>"
@@ -356,42 +350,12 @@ out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax[1])+"\" rmax=\""+str(twobounce_
 out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax[1])+"\" rmax=\""+str(twobounce_groove_rmax)+"\" z=\""+str(twobounce_groove_endz-twobounce_groove_zpos)+"\"/>"
 out+="\n\t</polycone>"
 
-
-
-x1=33
-y1=-5.5
-x2=120
-y2=-5.5
-x3=120
-y3=5.5
-x4=33
-y4=5.5
-
-out+="\n\t<xtru name=\"solid_nose_protector\"  lunit=\"mm\">"
-out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
-out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
-out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
-out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
-out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(nose_protector_beginz-nose_protector_zpos)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
-out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(nose_protector_endz-nose_protector_zpos)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
-out+="\n\t</xtru>"
-
-
 ### Upstream toroid mother
-
-
-
-
 
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_US_toroidMother\">"
 out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(5900-7000)+"\"/>"
 out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(twobounce_endz[-1]-7000)+"\"/>"
 out+="\n\t</polycone>"
-
-
-
-#out+="\n\t<cone name=\"solid_US_toroidMother\" rmin1=\""+str(r_inner_mother)+"\"  rmax1=\""+str(r_outer_mother)+"\" rmin2=\""+str(r_inner_mother)+"\" rmax2=\""+str(r_outer_mother)+"\" z=\""+str(l_mother)+"\" startphi=\"0\" deltaphi=\"360\" aunit=\"deg\" lunit=\"mm\"/>\n"
-
 
 out+="\n</solids>\n"
 
@@ -501,7 +465,7 @@ for i in range(1,8):
 out+="\n\t<volume name=\"logic_twobounce_long\">"
 out+="\n\t\t<materialref ref=\""+p["2_bounce_mat"]+"\"/>"
 out+="\n\t\t<solidref ref=\"solid_twobounce_long\"/>"
-out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
+out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
 out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
 out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(95)+"\"/>"
 out+="\n\t</volume>\n"
@@ -509,19 +473,10 @@ out+="\n\t</volume>\n"
 out+="\n\t<volume name=\"logic_twobounce_groove\">"
 out+="\n\t\t<materialref ref=\""+p["2_bounce_mat"]+"\"/>"
 out+="\n\t\t<solidref ref=\"solid_twobounce_groove\"/>"
-out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
+out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
 out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
 out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(96)+"\"/>"
 out+="\n\t</volume>\n"
-         
-out+="\n\t<volume name=\"logic_nose_protector\">"
-out+="\n\t\t<materialref ref=\""+p["nose_shield_mat"]+"\"/>"
-out+="\n\t\t<solidref ref=\"solid_nose_protector\"/>"
-out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
-out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
-out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(97)+"\"/>"
-out+="\n\t</volume>\n"
-
 
 out+="\n\t<volume name=\"US_toroidMother\">"
 out+="\n\t\t<materialref ref=\"G4_Galactic\"/>"
@@ -590,14 +545,8 @@ for i in range(1,8):
         
         out+="\n\t\t<physvol name=\"twobounce_groove_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_twobounce_groove\"/>"
-        out+="\n\t\t\t<position name=\"pos_twobounce_groove_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_zpos+7000))+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_twobounce_groove_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_groove_zpos+7000))+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_twobounce_groove_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta-(twobounce_groove_angpos*math.pi/360))+"\"/>"
-        out+="\n\t\t</physvol>\n"
-
-        out+="\n\t\t<physvol name=\"nose_protector_"+str(i)+"\">"
-        out+="\n\t\t\t<volumeref ref=\"logic_nose_protector\"/>"
-        out+="\n\t\t\t<position name=\"pos_nose_protector_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-nose_protector_zpos+7000))+"\"/>"
-        out+="\n\t\t\t<rotation name=\"rot_nose_protector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
         out+="\n\t\t</physvol>\n"
 
 out+="\n\t\t<physvol name=\"twobounce_long\">"
@@ -621,4 +570,3 @@ out+="\n</setup>\n"
 out+="\n</gdml>\n"
 
 f.write(out)
-
