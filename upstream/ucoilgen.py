@@ -355,8 +355,8 @@ out+="\n\t</polycone>"
 out+="\n\t<box aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_bar\" x=\""+str(2*p["support_bar_thickness"])+"\" y=\""+str(p["support_bar_thickness"])+"\" z=\""+str(p["support_bar_endz"]-p["support_bar_startz"])+"\">"
 
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_front_plate\">"
-out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_start"]-p["support_bar_thickness"]-7000)+"\"/>"
-out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_start"]-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_startz"]-p["support_bar_thickness"]-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_startz"]-7000)+"\"/>"
 out+="\n\t</polycone>"
                                            
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_back_plate\">"
