@@ -27,3 +27,4 @@ side_shield_length_segment4, 400
 support_bar_startz, 5946.025
 support_bar_endz, 8079.625
 support_bar_thickness, 25.4
+support_bar_minrad, 228.953
