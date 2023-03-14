@@ -352,16 +352,16 @@ out+="\n\t</polycone>"
 
 ### Upstream Support Bars
 
-out+="\n\t<box aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_bar\" x=\"50.8\" y=\"25.4\" z=\"2133.600\">"
+out+="\n\t<box aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_bar\" x=\"2*p["support_bar_thickness"]"++"\" y=\""+p["support_bar_thickness"]+"\" z=\""+p["support_bar_endz"]-p["support_bar_startz"]"\">"
 
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_front_plate\">"
-out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_start"]-2*p["support_bar_thickness"]-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_start"]-p["support_bar_thickness"]-7000)+"\"/>"
 out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_start"]-7000)+"\"/>"
 out+="\n\t</polycone>"
                                            
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_back_plate\">"
-out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_start"]-2*p["support_bar_thickness"]-7000)+"\"/>"
-out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_start"]-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_endz"]-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_endz"]+p["support_bar_thickness"]-7000)+"\"/>"
 out+="\n\t</polycone>"
                                         
 ### Upstream toroid mother
@@ -490,6 +490,30 @@ out+="\n\t\t<solidref ref=\"solid_twobounce_groove\"/>"
 out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
 out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
 out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(96)+"\"/>"
+out+="\n\t</volume>\n"
+                                           
+out+="\n\t<volume name=\"logic_support_front_plate\">"
+out+="\n\t\t<materialref ref=\"G4_Al\"/>"
+out+="\n\t\t<solidref ref=\"solid_support_front_plate\"/>"
+out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"G4_Al\"/>"
+out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"enclosureDet\"/>"
+out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(92)+"\"/>"
+out+="\n\t</volume>\n"
+                             
+out+="\n\t<volume name=\"logic_support_end_plate\">"
+out+="\n\t\t<materialref ref=\"G4_Al\"/>"
+out+="\n\t\t<solidref ref=\"solid_support_end_plate\"/>"
+out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"G4_Al\"/>"
+out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"enclosureDet\"/>"
+out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(93)+"\"/>"
+out+="\n\t</volume>\n"
+                             
+out+="\n\t<volume name=\"logic_support_bar\">"
+out+="\n\t\t<materialref ref=\"G4_Al\"/>"
+out+="\n\t\t<solidref ref=\"solid_support_bar\"/>"
+out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"G4_Al\"/>"
+out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"enclosureDet\"/>"
+out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(94)+"\"/>"
 out+="\n\t</volume>\n"
 
 out+="\n\t<volume name=\"US_toroidMother\">"
