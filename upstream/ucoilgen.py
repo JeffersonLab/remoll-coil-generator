@@ -188,10 +188,10 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield1_top_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield1 == widthtop_shield1):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
-
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t</xtru>"
@@ -209,7 +209,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield2_top_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield2 == widthtop_shield2):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield2/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -229,7 +230,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield3_top_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield3 == widthtop_shield3):  
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield3/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -250,7 +252,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield4_top_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield4 == widthtop_shield4):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield4/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -272,7 +275,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield1_bot_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield1 == widthtop_shield1):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -292,7 +296,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield2_bot_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield2 == widthtop_shield2):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield2/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -312,7 +317,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield3_bot_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield3 == widthtop_shield3):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield3/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -332,7 +338,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield4_bot_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield4 == widthtop_shield4):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield4/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
