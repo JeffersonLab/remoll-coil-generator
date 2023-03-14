@@ -85,8 +85,8 @@ twobounce_zpos=twobounce_beginz[0]+(twobounce_endz[-1]-twobounce_beginz[0])/2.0 
 
 shield_clearance=0.7
 
-r_inner_mother=0     #p["C_x1_low"]-p["E_dy"]-0.01-0.01
-r_outer_mother=p["C_x2_up"]+p["E_dy"]+1
+r_inner_mother=0     
+r_outer_mother=p["support_bar_minrad"]+2*p["support_bar_thickness]+1
 l_mother=2*( p["C_COM"] - p["C_z1_up"])+p["C_rad_front"]+p["C_rad_back"]+48
 
 print(p["C_rad_back"]-p["C_rad_front"])
@@ -350,6 +350,20 @@ out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax[1])+"\" rmax=\""+str(twobounce_
 out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax[1])+"\" rmax=\""+str(twobounce_groove_rmax)+"\" z=\""+str(twobounce_groove_endz-twobounce_groove_zpos)+"\"/>"
 out+="\n\t</polycone>"
 
+### Upstream Support Bars
+
+out+="\n\t<box aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_bar\" x=\"50.8\" y=\"25.4\" z=\"2133.600\">"
+
+out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_front_plate\">"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_start"]-2*p["support_bar_thickness"]-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_start"]-7000)+"\"/>"
+out+="\n\t</polycone>"
+                                           
+out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_back_plate\">"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_start"]-2*p["support_bar_thickness"]-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_start"]-7000)+"\"/>"
+out+="\n\t</polycone>"
+                                        
 ### Upstream toroid mother
 
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_US_toroidMother\">"
