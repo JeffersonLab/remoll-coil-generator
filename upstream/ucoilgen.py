@@ -586,11 +586,29 @@ for i in range(1,8):
         out+="\n\t\t\t<position name=\"pos_twobounce_groove_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_groove_zpos+7000))+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_twobounce_groove_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta-(twobounce_groove_angpos*math.pi/360))+"\"/>"
         out+="\n\t\t</physvol>\n"
+                                           
+        out+="\n\t\t<physvol name=\"support_bar_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_support_bar\"/>"
+        out+="\n\t\t\t<position name=\"pos_support_bar_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(0))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_support_bar_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta-(twobounce_groove_angpos*math.pi/360))+"\"/>"
+        out+="\n\t\t</physvol>\n"
 
 out+="\n\t\t<physvol name=\"twobounce_long\">"
 out+="\n\t\t\t<volumeref ref=\"logic_twobounce_long\"/>"
 out+="\n\t\t\t<position name=\"pos_twobounce_long\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_zpos+7000))+"\"/>"
 out+="\n\t\t\t<rotation name=\"rot_twobounce_long\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
+out+="\n\t\t</physvol>\n"
+                                          
+out+="\n\t\t<physvol name=\"support_front_plate\">"
+out+="\n\t\t\t<volumeref ref=\"logic_support_front_plate\"/>"
+out+="\n\t\t\t<position name=\"pos_support_front_plate\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(0)+"\"/>"
+out+="\n\t\t\t<rotation name=\"rot_support_front_plate\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
+out+="\n\t\t</physvol>\n"
+                                           
+out+="\n\t\t<physvol name=\"support_end_plate\">"
+out+="\n\t\t\t<volumeref ref=\"logic_support_end_plate\"/>"
+out+="\n\t\t\t<position name=\"pos_support_end_plate\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(0)+"\"/>"
+out+="\n\t\t\t<rotation name=\"rot_support_end_plate\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
 out+="\n\t\t</physvol>\n"
 
 
