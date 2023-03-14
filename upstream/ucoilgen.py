@@ -589,7 +589,7 @@ for i in range(1,8):
                                            
         out+="\n\t\t<physvol name=\"support_bar_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_support_bar\"/>"
-        out+="\n\t\t\t<position name=\"pos_support_bar_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str((p["support_bar_startz"]+p["support_bar_endz"])/2.0-7000)+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_support_bar_"+str(i)+"\" x=\""+str((p["support_bar_minrad"]+p["support_bar_thickness"])*math.cos(twobounce_groove_angpos*math.pi/360))+"\" y=\""+str((p["support_bar_minrad"]+p["support_bar_thickness"])*math.sin(twobounce_groove_angpos*math.pi/360))+"\" z=\""+str((p["support_bar_startz"]+p["support_bar_endz"])/2.0-7000)+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_support_bar_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta-(twobounce_groove_angpos*math.pi/360))+"\"/>"
         out+="\n\t\t</physvol>\n"
 
