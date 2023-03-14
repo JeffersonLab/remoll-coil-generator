@@ -86,7 +86,7 @@ twobounce_zpos=twobounce_beginz[0]+(twobounce_endz[-1]-twobounce_beginz[0])/2.0 
 shield_clearance=0.7
 
 r_inner_mother=0     
-r_outer_mother=p["support_bar_minrad"]+2*p["support_bar_thickness"]+1
+r_outer_mother=p["support_bar_minrad"]+2*p["support_bar_thickness"]
 l_mother=2*( p["C_COM"] - p["C_z1_up"])+p["C_rad_front"]+p["C_rad_back"]+48
 
 print(p["C_rad_back"]-p["C_rad_front"])
@@ -375,7 +375,7 @@ out+="\n\t</polycone>"
 
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_US_toroidMother\">"
 out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(5900-7000)+"\"/>"
-out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(twobounce_endz[-1]-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_endz"]+p["support_bar_thickness"]-7000)+"\"/>"
 out+="\n\t</polycone>"
 
 out+="\n</solids>\n"
