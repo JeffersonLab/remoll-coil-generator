@@ -85,8 +85,8 @@ twobounce_zpos=twobounce_beginz[0]+(twobounce_endz[-1]-twobounce_beginz[0])/2.0 
 
 shield_clearance=0.7
 
-r_inner_mother=0     #p["C_x1_low"]-p["E_dy"]-0.01-0.01
-r_outer_mother=p["C_x2_up"]+p["E_dy"]+1
+r_inner_mother=0     
+r_outer_mother=p["support_bar_minrad"]+2*p["support_bar_thickness"]+20
 l_mother=2*( p["C_COM"] - p["C_z1_up"])+p["C_rad_front"]+p["C_rad_back"]+48
 
 print(p["C_rad_back"]-p["C_rad_front"])
@@ -188,10 +188,10 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield1_top_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield1 == widthtop_shield1):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
-
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
   out+="\n\t</xtru>"
@@ -209,7 +209,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield2_top_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield2 == widthtop_shield2):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield2/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -229,7 +230,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield3_top_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield3 == widthtop_shield3):  
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield3/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -250,7 +252,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield4_top_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield4 == widthtop_shield4):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield4/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -272,7 +275,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield1_bot_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield1 == widthtop_shield1):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield1/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -292,7 +296,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield2_bot_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield2 == widthtop_shield2):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield2/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -312,7 +317,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield3_bot_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield3 == widthtop_shield3):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield3/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -332,7 +338,8 @@ for i in range(1,8):
   out+="\n\t<xtru name=\"solid_shield4_bot_"+str(i)+"\"  lunit=\"mm\">"
   out+="\n\t\t<twoDimVertex x=\""+str(x5)+"\" y=\""+str(y5)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x4)+"\" y=\""+str(y4)+"\" />"
-  out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
+  if not (widthbot_shield4 == widthtop_shield4):
+    out+="\n\t\t<twoDimVertex x=\""+str(x3)+"\" y=\""+str(y3)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x2)+"\" y=\""+str(y2)+"\" />"
   out+="\n\t\t<twoDimVertex x=\""+str(x1)+"\" y=\""+str(y1)+"\" />"
   out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(-length_shield4/2)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
@@ -350,11 +357,25 @@ out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax[1])+"\" rmax=\""+str(twobounce_
 out+="\n\t\t <zplane rmin=\""+str(twobounce_rmax[1])+"\" rmax=\""+str(twobounce_groove_rmax)+"\" z=\""+str(twobounce_groove_endz-twobounce_groove_zpos)+"\"/>"
 out+="\n\t</polycone>"
 
+### Upstream Support Bars
+
+out+="\n\t<box aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_bar\" x=\""+str(2*p["support_bar_thickness"])+"\" y=\""+str(p["support_bar_thickness"])+"\" z=\""+str(p["support_bar_endz"]-p["support_bar_startz"])+"\"/>"
+
+out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_front_plate\">"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_startz"]-p["support_bar_thickness"]-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_startz"]-7000)+"\"/>"
+out+="\n\t</polycone>"
+                                           
+out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_support_end_plate\">"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_endz"]-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(p["support_bar_minrad"])+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_endz"]+p["support_bar_thickness"]-7000)+"\"/>"
+out+="\n\t</polycone>"
+                                        
 ### Upstream toroid mother
 
 out+="\n\t<polycone aunit=\"deg\" startphi=\"0\" deltaphi=\"360\" lunit=\"mm\" name=\"solid_US_toroidMother\">"
 out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(5900-7000)+"\"/>"
-out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(twobounce_endz[-1]-7000)+"\"/>"
+out+="\n\t\t <zplane rmin=\""+str(r_inner_mother)+"\" rmax=\""+str(r_outer_mother)+"\" z=\""+str(p["support_bar_endz"]+p["support_bar_thickness"]-7000)+"\"/>"
 out+="\n\t</polycone>"
 
 out+="\n</solids>\n"
@@ -477,6 +498,30 @@ out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
 out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
 out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(96)+"\"/>"
 out+="\n\t</volume>\n"
+                                           
+out+="\n\t<volume name=\"logic_support_front_plate\">"
+out+="\n\t\t<materialref ref=\"G4_Al\"/>"
+out+="\n\t\t<solidref ref=\"solid_support_front_plate\"/>"
+out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"G4_Al\"/>"
+out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"enclosureDet\"/>"
+out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(92)+"\"/>"
+out+="\n\t</volume>\n"
+                             
+out+="\n\t<volume name=\"logic_support_end_plate\">"
+out+="\n\t\t<materialref ref=\"G4_Al\"/>"
+out+="\n\t\t<solidref ref=\"solid_support_end_plate\"/>"
+out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"G4_Al\"/>"
+out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"enclosureDet\"/>"
+out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(93)+"\"/>"
+out+="\n\t</volume>\n"
+                             
+out+="\n\t<volume name=\"logic_support_bar\">"
+out+="\n\t\t<materialref ref=\"G4_Al\"/>"
+out+="\n\t\t<solidref ref=\"solid_support_bar\"/>"
+out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"G4_Al\"/>"
+out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"enclosureDet\"/>"
+out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(94)+"\"/>"
+out+="\n\t</volume>\n"
 
 out+="\n\t<volume name=\"US_toroidMother\">"
 out+="\n\t\t<materialref ref=\"G4_Galactic\"/>"
@@ -548,11 +593,29 @@ for i in range(1,8):
         out+="\n\t\t\t<position name=\"pos_twobounce_groove_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_groove_zpos+7000))+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_twobounce_groove_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta-(twobounce_groove_angpos*math.pi/360))+"\"/>"
         out+="\n\t\t</physvol>\n"
+                                           
+        out+="\n\t\t<physvol name=\"support_bar_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_support_bar\"/>"
+        out+="\n\t\t\t<position name=\"pos_support_bar_"+str(i)+"\" x=\""+str((p["support_bar_minrad"]+p["support_bar_thickness"])*math.cos(theta+math.pi/7))+"\" y=\""+str((p["support_bar_minrad"]+p["support_bar_thickness"])*math.sin(theta+math.pi/7))+"\" z=\""+str((p["support_bar_startz"]+p["support_bar_endz"])/2.0-7000)+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_support_bar_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(-theta-math.pi/7)+"\"/>"
+        out+="\n\t\t</physvol>\n"
 
 out+="\n\t\t<physvol name=\"twobounce_long\">"
 out+="\n\t\t\t<volumeref ref=\"logic_twobounce_long\"/>"
 out+="\n\t\t\t<position name=\"pos_twobounce_long\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-twobounce_zpos+7000))+"\"/>"
 out+="\n\t\t\t<rotation name=\"rot_twobounce_long\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
+out+="\n\t\t</physvol>\n"
+                                          
+out+="\n\t\t<physvol name=\"support_front_plate\">"
+out+="\n\t\t\t<volumeref ref=\"logic_support_front_plate\"/>"
+out+="\n\t\t\t<position name=\"pos_support_front_plate\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(0)+"\"/>"
+out+="\n\t\t\t<rotation name=\"rot_support_front_plate\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
+out+="\n\t\t</physvol>\n"
+                                           
+out+="\n\t\t<physvol name=\"support_end_plate\">"
+out+="\n\t\t\t<volumeref ref=\"logic_support_end_plate\"/>"
+out+="\n\t\t\t<position name=\"pos_support_end_plate\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(0)+"\"/>"
+out+="\n\t\t\t<rotation name=\"rot_support_end_plate\" x=\"0\" y=\""+str(0)+"\" z=\"0\"/>"
 out+="\n\t\t</physvol>\n"
 
 
