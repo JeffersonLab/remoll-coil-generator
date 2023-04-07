@@ -39,8 +39,8 @@ print(p["C_COM"])
 p["C4_rpos"]= p["C4_mid_rpos"]
 p["C4_zpos"]= p["C4_mid_zpos"]
 p["C4_l_arm"]=p["C4_mid_l_arm"]
-r_inner_mother=0#p["C1_x1_low"]-2
-r_outer_mother=p["C4_mid_x4_up"]+10
+r_inner_mother=0
+r_outer_mother=700
 l_mother=2*( p["C_COM"] - p["C1_z1_up"])+p["C1_rad_front"]+p["C4_mid_rad_back"]+100
 
 print("COM: "+str(p["C_COM"]))
@@ -50,6 +50,60 @@ print(l_mother)
 print("Offset from center of mass: "+ str((-p["C1_rad_front"]+p["C4_mid_rad_back"])/2))
 
 print("Upstream end of mother volume: "+ str((-l_mother/2+p["C_COM"])))
+
+# Clamps
+
+clamp_1_x = [330.200, 66.040, 66.040, 116.840, 396.240, 396.240, 399.415, 399.415, 488.315, 501.785, 507.365, 507.365, 526.415, 526.415, 551.815]
+clamp_1_y = [11.354, 11.354, 12.878, 24.054, 24.054, 10.693, 10.693, 29.743, 29.743, 35.323, 48.793, 86.893, 86.893, 101.600, 101.600]
+clamp_2_x = [330.200, 81.915, 81.915, 132.715, 396.240, 396.240, 399.415, 399.415, 488.315, 501.785, 507.365, 507.365, 526.415, 526.415, 551.815] 
+clamp_2_y = [12.954, 12.954, 14.478, 25.654, 25.654, 12.306, 12.306, 31.356, 31.356, 36.936, 50.406, 88.506, 88.506, 101.600, 101.600]
+clamp_3_x1 = [330.200, 101.600, 101.600, 152.400, 396.240, 396.240, 399.415, 399.415, 488.315, 501.785, 507.365, 507.365, 526.415, 526.415, 551.815] 
+clamp_3_y1 = [13.45, 13.45, 14.973, 26.149, 26.149, 12.700, 12.700, 31.750, 31.750, 37.330, 50.800, 88.900, 88.900, 101.600, 101.600]
+clamp_3_x2 = [330.200, 103.906, 103.906, 141.542, 141.542, 148.527, 148.527, 175.260, 175.260, 396.240, 396.240, 399.415, 399.415, 488.315, 501.785, 507.365, 507.365, 526.415, 526.415, 551.815] 
+clamp_3_y2 = [13.45,  13.45, 24.625, 24.625, 26.149, 26.149, 24.625, 24.625, 26.149, 26.149, 12.700, 12.700, 31.750, 31.750, 37.330, 50.800, 88.900, 88.900, 101.600, 101.600]
+clamp_4_x1= [457.352, 101.600, 101.600, 127.000, 183.515, 191.915, 213.215, 221.615, 504.190, 504.190, 507.365, 507.365, 564.515, 577.985, 583.565, 583.565, 602.615, 602.615, 628.015]  
+clamp_4_y1= [24.7, 24.7, 26.604, 34.224, 34.224, 31.049, 31.049, 34.224, 34.224, 24.699, 24.699, 34.925, 34.925, 40.505, 53.975, 92.075, 92.075, 101.600, 101.600]
+clamp_4_x2= [409.575, 95.250, 95.250, 91.821, 92.075, 95.250, 95.250, 101.600, 104.775, 139.700, 139.700, 305.469, 313.970, 324.209, 357.781, 365.813, 373.021, 472.440, 472.440, 475.615, 475.615, 564.515, 577.985, 583.565, 583.565, 602.615, 602.615, 628.015]
+clamp_4_y2= [24.7, 24.7, 26.985, 26.985, 35.049, 35.049, 37.399, 37.399, 34.224, 34.224, 37.399, 37.399, 31.299, 29.144, 29.144, 30.447, 34.224, 34.224, 15.875, 15.875, 34.925, 34.925, 40.505, 53.975, 92.075, 92.075, 101.600, 101.600]
+clamp_4_x3= [382.757, 382.010, 380.211, 113.030, 113.030, 109.855, 109.855, 113.030, 113.030, 327.025, 377.584, 409.168, 412.231, 415.518, 435.221, 440.720, 445.135, 475.615, 475.615, 564.515, 577.985, 583.565, 583.565, 602.615, 602.615, 628.015]
+clamp_4_y3= [22.159, 23.956, 24.7, 24.7, 27.049, 27.049, 35.050, 35.050, 37.399, 37.399, 31.049, 12.814, 11.545, 11.113, 11.113, 12.365, 15.875, 15.875, 34.925, 34.925, 40.505, 53.975, 92.075, 92.075, 101.600, 101.600] 
+
+clamp_x = [clamp_1_x,
+           clamp_1_x,
+           clamp_2_x,
+           clamp_2_x,
+           clamp_3_x1,
+           clamp_3_x2,
+           clamp_4_x1,
+           clamp_4_x2,
+           clamp_4_x3]
+clamp_y = [clamp_1_y,
+           clamp_1_y,
+           clamp_2_y,
+           clamp_2_y,
+           clamp_3_y1,
+           clamp_3_y2,
+           clamp_4_y1,
+           clamp_4_y2,
+           clamp_4_y3]
+clamp_zpos = [10164.468,
+              10523.243,
+              11189.012,
+              11547.787,
+              12232.211,
+              12590.986,
+              13489.103,
+              14555.903,
+              15927.503]
+clamp_dz = [152.4,
+            152.4,
+            152.4,
+            152.4,
+            152.4,
+            152.4,
+            152.4,
+            152.4,
+            152.4]
 
 # Epoxy protector
 epoxy_protector_beginz = [10001.227, 11038.541, 12097.0, 12500.0, 13096.987]
@@ -66,7 +120,7 @@ epoxy_protector_subcoil4_sectionr = [56.808, 78.652, 160.138, 129.02]
 epoxy_protector_subcoil4_relsectionr = [epoxy_protector_subcoil4_sectionr[i]-epoxy_protector_subcoil4_sectionr[0] for i in range(0,4)]
 epoxy_protector_subcoil4_sectionz = [13096.987, 14763.020, 16115.011, 16664.245]
 epoxy_protector_subcoil4_relsectionz = [epoxy_protector_subcoil4_sectionz[i]-epoxy_protector_subcoil4_sectionz[0] for i in range(0,4)]
-
+           
 f=open(output_file+".gdml", "w+")
 
 out="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -213,6 +267,18 @@ for j in  range(1,5):
   out+="\n\t\t<section zOrder=\""+str(j)+"\" zPosition=\""+str(epoxy_protector_subcoil4_relsectionz[j-1])+"\" xOffset=\""+str(epoxy_protector_subcoil4_relsectionr[j-1])+"\" yOffset=\"0\" scalingFactor=\"1\"/>"
 out+="\n\t</xtru>"
 
+### clamps
+for i in range(1,10):
+  out+="\n\t<xtru name=\"solid_clamp_"+str(i)+"\"  lunit=\"mm\">"
+  size = len(clamp_x[i-1])
+  for j in  range(0,size):
+    out+="\n\t\t<twoDimVertex x=\""+str(clamp_x[i-1][size-1-j])+"\" y=\""+str(clamp_y[i-1][size-1-j])+"\" />"
+  for j in  range(0,size):
+    out+="\n\t\t<twoDimVertex x=\""+str(clamp_x[i-1][j])+"\" y=\""+str(-clamp_y[i-1][j])+"\" />"
+  out+="\n\t\t<section zOrder=\"1\" zPosition=\""+str(0)+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t\t<section zOrder=\"2\" zPosition=\""+str(clamp_dz[i-1])+"\" xOffset=\"0\" yOffset=\"0\" scalingFactor=\"1\"/>"
+  out+="\n\t</xtru>"
+
 ### Downstream toroid mother
 out+="\n\t<tube name=\"solid_DS_toroidMother\" rmin=\""+str(r_inner_mother)+"\"  rmax=\""+str(r_outer_mother)+"\" z=\""+str(l_mother)+"\" startphi=\"0\" deltaphi=\"360\" aunit=\"deg\" lunit=\"mm\"/>\n"
 
@@ -307,6 +373,13 @@ for i in range(0,5):
   out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"blue\"/>"
   out+="\n\t</volume>\n"
 
+for i in range(0,9):
+  out+="\n\t<volume name=\"logic_clamp_"+str(i+1)+"\">"
+  out+="\n\t\t<materialref ref=\"G4_Al\"/>"
+  out+="\n\t\t<solidref ref=\"solid_clamp_"+str(i+1)+"\"/>"
+  out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"grey\"/>"
+  out+="\n\t</volume>\n"
+
 
 out+="\n\t<volume name=\"DS_toroidMother\">"
 out+="\n\t\t<materialref ref=\"G4_Galactic\"/>"
@@ -321,18 +394,24 @@ for i in range(1,8):
         xpos=rpos*(math.cos(theta))
         ypos=rpos*(math.sin(theta))
         zpos= p["C"+str(j)+"_zpos"]- p["C"+str(j)+"_l_arm"]/2
-        """
         out+="\n\t\t<physvol name=\"dcoil"+str(j)+"_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_outer_E"+str(j)+"_"+str(i)+"\"/>"
         out+="\n\t\t\t<position name=\"pos_dcoil"+str(j)+"_"+str(i)+"\" x=\""+str(xpos)+"\" y=\""+str(ypos)+"\" z=\""+str(zpos)+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_dcoil"+str(j)+"_"+str(i)+"\" x=\"pi/2\" y=\""+str(theta)+"\" z=\""+str(0)+"\"/>"
         out+="\n\t\t</physvol>\n"
-        """
+        
    for j in range(1,6):     
         out+="\n\t\t<physvol name=\"epoxy_protector_"+str(j)+"_"+str(i)+"\">"
         out+="\n\t\t\t<volumeref ref=\"logic_epoxy_protector_"+str(j)+"\"/>"
         out+="\n\t\t\t<position name=\"pos_epoxy_protector_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-epoxy_protector_zpos[j-1]+p["C_COM"]))+"\"/>"
         out+="\n\t\t\t<rotation name=\"rot_epoxy_protector_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
+        out+="\n\t\t</physvol>\n"
+    
+   for j in range(1,10):     
+        out+="\n\t\t<physvol name=\"clamp_"+str(j)+"_"+str(i)+"\">"
+        out+="\n\t\t\t<volumeref ref=\"logic_clamp_"+str(j)+"\"/>"
+        out+="\n\t\t\t<position name=\"pos_clamp_"+str(j)+"_"+str(i)+"\" x=\""+str(0)+"\" y=\""+str(0)+"\" z=\""+str(-(-clamp_zpos[j-1]+p["C_COM"]))+"\"/>"
+        out+="\n\t\t\t<rotation name=\"rot_clamp_"+str(j)+"_"+str(i)+"\" x=\"0\" y=\""+str(0)+"\" z=\""+str(theta)+"\"/>"
         out+="\n\t\t</physvol>\n"
 
 out+="\n\t</volume>\n"
