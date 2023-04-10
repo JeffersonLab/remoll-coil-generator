@@ -118,8 +118,8 @@ for i in range(0, len(epoxy_protector_beginz)):
 for i in range(0, len(epoxy_protector_endz)):
     epoxy_protector_endz[i] += epoxy_protector_back_extra[i]
 
-epoxy_protector_rmin = [38, 40.5, 43, 43]
-epoxy_protector_rmax = [41, 43.5, 46, 46]
+epoxy_protector_rmin = [38, 43.5, 46, 46]
+epoxy_protector_rmax = [41, 46.5, 49, 49]
 epoxy_protector_dph= [p["C1_dy"]+2*p["E_dy"], p["C2_dy"]+2*p["E_dy"], p["C3_dy"]+2*p["E_dy"], p["C3_dy"]+2*p["E_dy"]]
 epoxy_protector_zpos = [epoxy_protector_beginz[i] for i in range(0,5)]
 
