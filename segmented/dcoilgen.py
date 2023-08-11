@@ -198,6 +198,9 @@ for j in range(1,4):
     out+="\n\t\t\t<position name=\"position_node_solid_"+i+str(j)+"\" x=\""+str(p["C"+str(j)+"_x2_up"]-p["C"+str(j)+"_rad_back"]-p["C"+str(j)+"_rpos"])+"\" y=\""+str(-p["C"+str(j)+"_l_arm"])+"\"/>"
     out+="\n\t\t\t<rotation name=\"rotation_node_solid_"+i+str(j)+"_back\" x=\"-pi\" />"
     out+="\n\t\t</union>\n"
+       
+  out+="\n\t<box lunit=\"mm\" name=\"straight_lower_solid_"+str(j)+"\" x=\"+str(p["C"+str(j)+"_dx"])+\" y=\"+str(p["C"+str(j)+"_dy"])+\" z=\""+str(p["C"+str(j)+"_z2_up"]-p["C"+str(j)+"_z1_up"])+"\"/>\n"
+  out+="\n\t<tube lunit=\"mm\" aunit=\"deg\" name=\"watertube_lower_solid_"+str(j)+"\" deltaphi=\"360\" startphi=\"0\" z=\""+str(p["C"+str(j)+"_z2_up"]-p["C"+str(j)+"_z1_up"])+"\" rmin=\"0\" rmax=\"p["C"+str(j)+"_watertube_radius"]\"/> \n \
 
 for j in ["mid"]:
   xoff={}
