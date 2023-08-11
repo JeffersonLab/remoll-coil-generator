@@ -137,7 +137,11 @@ epoxy_protector_subcoil4_relsectionz = [epoxy_protector_subcoil4_sectionz[i]-epo
 straight_epoxy_lower_solid_dx = [(p["C"+str(j)+"_dx"]-p["C"+str(j)+"_n_conductors"]*p["C"+str(j)+"_conductor_dx"])/(p["C"+str(j)+"_n_conductors"]-1) for j in range(1,4)]
 straight_epoxy_lower_solid_dy= [p["C"+str(j)+"_dy"] for j in range(1,4)]
 straight_epoxy_lower_solid_dz= [(p["C"+str(j)+"_z2_up"]-p["C"+str(j)+"_z1_up"]) for j in range(1,4)]
-          
+
+watertube_lower_solid_xpos=[[(-1.0*p["C"+str(j)+"_rad_front"]+(k-0.5)*p["C"+str(j)+"_conductor_dx"]+(k-1)*straight_epoxy_lower_solid_dx[j-1]) for k in range(1,int(p["C"+str(j)+"_n_conductors"]+1))] for j in range(1,4)]         
+
+print(watertube_lower_solid_xpos)
+ 
 f=open(output_file+".gdml", "w+")
 
 out="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -318,7 +322,7 @@ for i in range(1,8):
         out+="\n\t</volume>\n"
 
         for k in range(1, int(p["C"+str(j)+"_n_conductors"]+1)):
-          out+="\n\t<volume name=\"logic_watertube"+str(j)+"_"+str(i)+"_"+str(k)+"\">"
+          out+="\n\t<volume name=\"logic_watertube_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\">"
           out+="\n\t\t<materialref ref=\"G4_WATER\"/>"
           out+="\n\t\t<solidref ref=\"solid_watertube_lower_"+str(j)+"\"/>"
           out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"cyan\"/>"
@@ -346,6 +350,13 @@ for i in range(1,8):
         out+="\n\t\t\t\t<volumeref ref=\"logic_inner_E"+str(j)+"_"+str(i)+"\"/>"
         out+="\n\t\t\t\t<rotation name=\"rot_inner_E\" y=\"0\" unit=\"rad\" />"
         out+="\n\t\t\t</physvol>\n"
+        for k in range(1, int(p["C"+str(j)+"_n_conductors"]+1)):
+          out+="\n\t\t\t<physvol name=\"watertube_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\">"
+          out+="\n\t\t\t\t<volumeref ref=\"logic_watertube_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\"/>"
+          out+="\n\t\t\t\t<rotation name=\"rot_watertube_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\" x=\"pi/2.0\" unit=\"rad\"/>"
+          out+="\n\t\t\t\t<position name=\"pos_watertube_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\" x=\""+str(watertube_lower_solid_xpos[j-1][k-1])+"\" y=\""+str(-1.0*straight_epoxy_lower_solid_dz[j-1]/2.0)+"\" unit=\"rad\"/>"
+
+          out+="\n\t\t\t</physvol>\n"
         out+="\n\t</volume>\n"
 
         out+="\n\t<volume name=\"logic_outer_E"+str(j)+"_"+str(i)+"\">"
