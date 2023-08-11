@@ -206,8 +206,8 @@ for j in range(1,4):
     out+="\n\t\t\t<rotation name=\"rotation_node_solid_"+i+str(j)+"_back\" x=\"-pi\" />"
     out+="\n\t\t</union>\n"
        
-  out+="\n\t<box lunit=\"mm\" name=\"straight_epoxy_lower_solid_"+str(j)+"\" x=\""+str(straight_epoxy_lower_solid_dx[j-1])+"\" y=\""+str(straight_epoxy_lower_solid_dy[j-1])+"\" z=\""+str(straight_epoxy_lower_solid_dz[j-1])+"\"/>\n"
-  out+="\n\t<eltube lunit=\"mm\" name=\"watertube_lower_solid_"+str(j)+"\"  dz=\""+str(straight_epoxy_lower_solid_dz[j-1]/2.0)+"\" dx=\""+str(p["C"+str(j)+"_watertube_dx"]/2.0)+"\" dy=\""+str(p["C"+str(j)+"_watertube_dy"]/2.0)+"\"/>\n"
+  out+="\n\t<box lunit=\"mm\" name=\"solid_straight_epoxy_lower_"+str(j)+"\" x=\""+str(straight_epoxy_lower_solid_dx[j-1])+"\" y=\""+str(straight_epoxy_lower_solid_dy[j-1])+"\" z=\""+str(straight_epoxy_lower_solid_dz[j-1])+"\"/>\n"
+  out+="\n\t<eltube lunit=\"mm\" name=\"solid_watertube_lower_"+str(j)+"\"  dz=\""+str(straight_epoxy_lower_solid_dz[j-1]/2.0)+"\" dx=\""+str(p["C"+str(j)+"_watertube_dx"]/2.0)+"\" dy=\""+str(p["C"+str(j)+"_watertube_dy"]/2.0)+"\"/>\n"
 
 for j in ["mid"]:
   xoff={}
@@ -316,6 +316,25 @@ for i in range(1,8):
         out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
         out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(3007+i)+"\"/>"
         out+="\n\t</volume>\n"
+
+        for k in range(1, int(p["C"+str(j)+"_n_conductors"]+1)):
+          out+="\n\t<volume name=\"logic_watertube"+str(j)+"_"+str(i)+"_"+str(k)+"\">"
+          out+="\n\t\t<materialref ref=\"G4_WATER\"/>"
+          out+="\n\t\t<solidref ref=\"solid_watertube_lower_"+str(j)+"\"/>"
+          out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"cyan\"/>"
+          out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+          out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(3050+k+10*j+100*i)+"\"/>"
+          out+="\n\t</volume>\n"
+          
+          if (k<p["C"+str(j)+"_n_conductors"]):
+            out+="\n\t<volume name=\"logic_straight_epoxy_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\">"
+            out+="\n\t\t<materialref ref=\"G10\"/>"
+            out+="\n\t\t<solidref ref=\"solid_straight_epoxy_lower_"+str(j)+"\"/>"
+            out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
+            out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+            out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(3000+k+10*j+100*i)+"\"/>"
+            out+="\n\t</volume>\n"
+
 
         out+="\n\t<volume name=\"logic_C"+str(j)+"_"+str(i)+"\">"
         out+="\n\t\t<materialref ref=\"G4_Cu\"/>"
