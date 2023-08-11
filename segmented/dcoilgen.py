@@ -138,7 +138,11 @@ straight_epoxy_lower_solid_dx = [(p["C"+str(j)+"_dx"]-p["C"+str(j)+"_n_conductor
 straight_epoxy_lower_solid_dy= [p["C"+str(j)+"_dy"] for j in range(1,4)]
 straight_epoxy_lower_solid_dz= [(p["C"+str(j)+"_z2_up"]-p["C"+str(j)+"_z1_up"]) for j in range(1,4)]
 
+### Coil inner insulation layers and water tube positionings
+straight_epoxy_lower_solid_xpos=[[(-1.0*p["C"+str(j)+"_rad_front"]+k*p["C"+str(j)+"_conductor_dx"]+(k-0.5)*straight_epoxy_lower_solid_dx[j-1]) for k in range(1,int(p["C"+str(j)+"_n_conductors"]+1))] for j in range(1,4)]
+
 watertube_lower_solid_xpos=[[(-1.0*p["C"+str(j)+"_rad_front"]+(k-0.5)*p["C"+str(j)+"_conductor_dx"]+(k-1)*straight_epoxy_lower_solid_dx[j-1]) for k in range(1,int(p["C"+str(j)+"_n_conductors"]+1))] for j in range(1,4)]         
+
 
 print(watertube_lower_solid_xpos)
  
@@ -357,6 +361,14 @@ for i in range(1,8):
           out+="\n\t\t\t\t<position name=\"pos_watertube_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\" x=\""+str(watertube_lower_solid_xpos[j-1][k-1])+"\" y=\""+str(-1.0*straight_epoxy_lower_solid_dz[j-1]/2.0)+"\" unit=\"rad\"/>"
 
           out+="\n\t\t\t</physvol>\n"
+          if (k<p["C"+str(j)+"_n_conductors"]):
+            out+="\n\t\t\t<physvol name=\"straight_epoxy_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\">"
+            out+="\n\t\t\t\t<volumeref ref=\"logic_straight_epoxy_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\"/>"
+            out+="\n\t\t\t\t<rotation name=\"rot_straight_epoxy_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\" x=\"pi/2.0\" unit=\"rad\"/>"
+            out+="\n\t\t\t\t<position name=\"pos_straight_epoxy_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\" x=\""+str(straight_epoxy_lower_solid_xpos[j-1][k-1])+"\" y=\""+str(-1.0*straight_epoxy_lower_solid_dz[j-1]/2.0)+"\" unit=\"rad\"/>"
+
+            out+="\n\t\t\t</physvol>\n"
+
         out+="\n\t</volume>\n"
 
         out+="\n\t<volume name=\"logic_outer_E"+str(j)+"_"+str(i)+"\">"
