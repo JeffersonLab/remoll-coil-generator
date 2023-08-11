@@ -130,7 +130,14 @@ epoxy_protector_subcoil4_sectionr = [56.808, 78.652, 160.138, 129.02]
 epoxy_protector_subcoil4_relsectionr = [epoxy_protector_subcoil4_sectionr[i]-epoxy_protector_subcoil4_sectionr[0] for i in range(0,4)]
 epoxy_protector_subcoil4_sectionz = [13096.987, 14763.020, 16115.011, 16664.245]
 epoxy_protector_subcoil4_relsectionz = [epoxy_protector_subcoil4_sectionz[i]-epoxy_protector_subcoil4_sectionz[0] for i in range(0,4)]
-           
+
+
+
+### Coil inner insulation layer dimensions
+straight_epoxy_lower_solid_dx = [(p["C"+str(j)+"_dx"]-p["C"+str(j)+"_n_conductors"]*p["C"+str(j)+"_conductor_dx"])/(p["C"+str(j)+"_n_conductors"]-1) for j in range(1,4)]
+straight_epoxy_lower_solid_dy= [p["C"+str(j)+"_dy"] for j in range(1,4)]
+straight_epoxy_lower_solid_dz= [(p["C"+str(j)+"_z2_up"]-p["C"+str(j)+"_z1_up"]) for j in range(1,4)]
+          
 f=open(output_file+".gdml", "w+")
 
 out="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -199,8 +206,8 @@ for j in range(1,4):
     out+="\n\t\t\t<rotation name=\"rotation_node_solid_"+i+str(j)+"_back\" x=\"-pi\" />"
     out+="\n\t\t</union>\n"
        
-  out+="\n\t<box lunit=\"mm\" name=\"straight_epoxy_lower_solid_"+str(j)+"\" x=\""+str((p["C"+str(j)+"_dx"]-p["C"+str(j)+"_n_conductors"]*p["C"+str(j)+"_conductor_dx"])/(p["C"+str(j)+"_n_conductors"]-1))+"\" y=\""+str(p["C"+str(j)+"_dy"])+"\" z=\""+str(p["C"+str(j)+"_z2_up"]-p["C"+str(j)+"_z1_up"])+"\"/>\n"
-  out+="\n\t<eltube lunit=\"mm\" name=\"watertube_lower_solid_"+str(j)+"\"  dz=\""+str(p["C"+str(j)+"_z2_up"]-p["C"+str(j)+"_z1_up"]/2.0)+"\" dx=\""+str(p["C"+str(j)+"_watertube_dx"])+"\" dy=\""+str(p["C"+str(j)+"_watertube_dy"])+"\"/>\n"
+  out+="\n\t<box lunit=\"mm\" name=\"straight_epoxy_lower_solid_"+str(j)+"\" x=\""+str(straight_epoxy_lower_solid_dx[j-1])+"\" y=\""+str(straight_epoxy_lower_solid_dy[j-1])+"\" z=\""+str(straight_epoxy_lower_solid_dz[j-1])+"\"/>\n"
+  out+="\n\t<eltube lunit=\"mm\" name=\"watertube_lower_solid_"+str(j)+"\"  dz=\""+str(straight_epoxy_lower_solid_dz[j-1]/2.0)+"\" dx=\""+str(p["C"+str(j)+"_watertube_dx"]/2.0)+"\" dy=\""+str(p["C"+str(j)+"_watertube_dy"]/2.0)+"\"/>\n"
 
 for j in ["mid"]:
   xoff={}
