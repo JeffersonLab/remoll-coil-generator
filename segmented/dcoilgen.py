@@ -200,7 +200,7 @@ for j in range(1,4):
     out+="\n\t\t</union>\n"
        
   out+="\n\t<box lunit=\"mm\" name=\"straight_epoxy_lower_solid_"+str(j)+"\" x=\""+str((p["C"+str(j)+"_dx"]-p["C"+str(j)+"_n_conductors"]*p["C"+str(j)+"_conductor_dx"])/(p["C"+str(j)+"_n_conductors"]-1))+"\" y=\""+str(p["C"+str(j)+"_dy"])+"\" z=\""+str(p["C"+str(j)+"_z2_up"]-p["C"+str(j)+"_z1_up"])+"\"/>\n"
-  out+="\n\t<tube lunit=\"mm\" aunit=\"deg\" name=\"watertube_lower_solid_"+str(j)+"\" deltaphi=\"360\" startphi=\"0\" z=\""+str(p["C"+str(j)+"_z2_up"]-p["C"+str(j)+"_z1_up"])+"\" rmin=\"0\" rmax=\""+p["C"+str(j)+"_watertube_radius"]+"\"/>\n"
+  out+="\n\t<eltube lunit=\"mm\" name=\"watertube_lower_solid_"+str(j)+"\"  dz=\""+str(p["C"+str(j)+"_z2_up"]-p["C"+str(j)+"_z1_up"]/2.0)+"\" dx=\""+str(p["C"+str(j)+"_watertube_dx"])+"\" dy=\""+str(p["C"+str(j)+"_watertube_dy"])+"\"/>\n"
 
 for j in ["mid"]:
   xoff={}
