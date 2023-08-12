@@ -130,7 +130,22 @@ epoxy_protector_subcoil4_sectionr = [56.808, 78.652, 160.138, 129.02]
 epoxy_protector_subcoil4_relsectionr = [epoxy_protector_subcoil4_sectionr[i]-epoxy_protector_subcoil4_sectionr[0] for i in range(0,4)]
 epoxy_protector_subcoil4_sectionz = [13096.987, 14763.020, 16115.011, 16664.245]
 epoxy_protector_subcoil4_relsectionz = [epoxy_protector_subcoil4_sectionz[i]-epoxy_protector_subcoil4_sectionz[0] for i in range(0,4)]
-           
+
+
+
+### Coil inner insulation layer dimensions
+straight_epoxy_lower_solid_dx = [(p["C"+str(j)+"_dx"]-p["C"+str(j)+"_n_conductors"]*p["C"+str(j)+"_conductor_dx"])/(p["C"+str(j)+"_n_conductors"]-1) for j in range(1,4)]
+straight_epoxy_lower_solid_dy= [p["C"+str(j)+"_dy"] for j in range(1,4)]
+straight_epoxy_lower_solid_dz= [(p["C"+str(j)+"_z2_up"]-p["C"+str(j)+"_z1_up"]) for j in range(1,4)]
+
+### Coil inner insulation layers and water tube positionings
+straight_epoxy_lower_solid_xpos=[[(-1.0*p["C"+str(j)+"_rad_front"]+k*p["C"+str(j)+"_conductor_dx"]+(k-0.5)*straight_epoxy_lower_solid_dx[j-1]) for k in range(1,int(p["C"+str(j)+"_n_conductors"]+1))] for j in range(1,4)]
+
+watertube_lower_solid_xpos=[[(-1.0*p["C"+str(j)+"_rad_front"]+(k-0.5)*p["C"+str(j)+"_conductor_dx"]+(k-1)*straight_epoxy_lower_solid_dx[j-1]) for k in range(1,int(p["C"+str(j)+"_n_conductors"]+1))] for j in range(1,4)]         
+
+
+print(watertube_lower_solid_xpos)
+ 
 f=open(output_file+".gdml", "w+")
 
 out="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -198,6 +213,9 @@ for j in range(1,4):
     out+="\n\t\t\t<position name=\"position_node_solid_"+i+str(j)+"\" x=\""+str(p["C"+str(j)+"_x2_up"]-p["C"+str(j)+"_rad_back"]-p["C"+str(j)+"_rpos"])+"\" y=\""+str(-p["C"+str(j)+"_l_arm"])+"\"/>"
     out+="\n\t\t\t<rotation name=\"rotation_node_solid_"+i+str(j)+"_back\" x=\"-pi\" />"
     out+="\n\t\t</union>\n"
+       
+  out+="\n\t<box lunit=\"mm\" name=\"solid_straight_epoxy_lower_"+str(j)+"\" x=\""+str(straight_epoxy_lower_solid_dx[j-1])+"\" y=\""+str(straight_epoxy_lower_solid_dy[j-1])+"\" z=\""+str(straight_epoxy_lower_solid_dz[j-1])+"\"/>\n"
+  out+="\n\t<eltube lunit=\"mm\" name=\"solid_watertube_lower_"+str(j)+"\"  dz=\""+str(straight_epoxy_lower_solid_dz[j-1]/2.0)+"\" dx=\""+str(p["C"+str(j)+"_watertube_dx"]/2.0)+"\" dy=\""+str(p["C"+str(j)+"_watertube_dy"]/2.0)+"\"/>\n"
 
 for j in ["mid"]:
   xoff={}
@@ -307,6 +325,25 @@ for i in range(1,8):
         out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(3007+i)+"\"/>"
         out+="\n\t</volume>\n"
 
+        for k in range(1, int(p["C"+str(j)+"_n_conductors"]+1)):
+          out+="\n\t<volume name=\"logic_watertube_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\">"
+          out+="\n\t\t<materialref ref=\"G4_WATER\"/>"
+          out+="\n\t\t<solidref ref=\"solid_watertube_lower_"+str(j)+"\"/>"
+          out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"cyan\"/>"
+          out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+          out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(3000+(100-k)+100*i)+"\"/>"
+          out+="\n\t</volume>\n"
+          
+          if (k<p["C"+str(j)+"_n_conductors"]):
+            out+="\n\t<volume name=\"logic_straight_epoxy_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\">"
+            out+="\n\t\t<materialref ref=\"G10\"/>"
+            out+="\n\t\t<solidref ref=\"solid_straight_epoxy_lower_"+str(j)+"\"/>"
+            out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
+            out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
+            out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(3000+k+100*i)+"\"/>"
+            out+="\n\t</volume>\n"
+
+
         out+="\n\t<volume name=\"logic_C"+str(j)+"_"+str(i)+"\">"
         out+="\n\t\t<materialref ref=\"G4_Cu\"/>"
         out+="\n\t\t<solidref ref=\"solid_C"+str(j)+"\"/>"
@@ -317,6 +354,21 @@ for i in range(1,8):
         out+="\n\t\t\t\t<volumeref ref=\"logic_inner_E"+str(j)+"_"+str(i)+"\"/>"
         out+="\n\t\t\t\t<rotation name=\"rot_inner_E\" y=\"0\" unit=\"rad\" />"
         out+="\n\t\t\t</physvol>\n"
+        for k in range(1, int(p["C"+str(j)+"_n_conductors"]+1)):
+          out+="\n\t\t\t<physvol name=\"watertube_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\">"
+          out+="\n\t\t\t\t<volumeref ref=\"logic_watertube_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\"/>"
+          out+="\n\t\t\t\t<rotation name=\"rot_watertube_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\" x=\"pi/2.0\" unit=\"rad\"/>"
+          out+="\n\t\t\t\t<position name=\"pos_watertube_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\" x=\""+str(watertube_lower_solid_xpos[j-1][k-1])+"\" y=\""+str(-1.0*straight_epoxy_lower_solid_dz[j-1]/2.0)+"\" unit=\"rad\"/>"
+
+          out+="\n\t\t\t</physvol>\n"
+          if (k<p["C"+str(j)+"_n_conductors"]):
+            out+="\n\t\t\t<physvol name=\"straight_epoxy_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\">"
+            out+="\n\t\t\t\t<volumeref ref=\"logic_straight_epoxy_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\"/>"
+            out+="\n\t\t\t\t<rotation name=\"rot_straight_epoxy_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\" x=\"pi/2.0\" unit=\"rad\"/>"
+            out+="\n\t\t\t\t<position name=\"pos_straight_epoxy_lower_"+str(j)+"_"+str(i)+"_"+str(k)+"\" x=\""+str(straight_epoxy_lower_solid_xpos[j-1][k-1])+"\" y=\""+str(-1.0*straight_epoxy_lower_solid_dz[j-1]/2.0)+"\" unit=\"rad\"/>"
+
+            out+="\n\t\t\t</physvol>\n"
+
         out+="\n\t</volume>\n"
 
         out+="\n\t<volume name=\"logic_outer_E"+str(j)+"_"+str(i)+"\">"
