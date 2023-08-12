@@ -331,7 +331,7 @@ for i in range(1,8):
           out+="\n\t\t<solidref ref=\"solid_watertube_lower_"+str(j)+"\"/>"
           out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"cyan\"/>"
           out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
-          out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(3050+k+10*j+100*i)+"\"/>"
+          out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(3000+(100-k)+100*i)+"\"/>"
           out+="\n\t</volume>\n"
           
           if (k<p["C"+str(j)+"_n_conductors"]):
@@ -340,7 +340,7 @@ for i in range(1,8):
             out+="\n\t\t<solidref ref=\"solid_straight_epoxy_lower_"+str(j)+"\"/>"
             out+="\n\t\t<auxiliary auxtype=\"Color\" auxvalue=\"red\"/>"
             out+="\n\t\t<auxiliary auxtype=\"SensDet\" auxvalue=\"coilDet\"/>"
-            out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(3000+k+10*j+100*i)+"\"/>"
+            out+="\n\t\t<auxiliary auxtype=\"DetNo\" auxvalue=\""+str(3000+k+100*i)+"\"/>"
             out+="\n\t</volume>\n"
 
 
